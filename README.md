@@ -71,4 +71,4 @@ namespace Example
 ```
 
 # License
-**MariGlobals** is provided under [The GNU GPLv3 License.](https://gitlab.com/MariBot/MariSocketMiddleware/blob/master/LICENSE)
+**MariGlobals** is provided under [The GNU GPLv3 License.](https://gitlab.com/MariBot/MariGlobals/blob/master/LICENSE)
