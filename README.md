@@ -1,4 +1,4 @@
-# MariGlobas
+# MariGlobals
 
 Global things for all Mari's projects
 
