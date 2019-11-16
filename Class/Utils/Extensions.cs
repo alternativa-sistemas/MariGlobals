@@ -18,11 +18,5 @@ namespace MariGlobals.Class.Utils
 
         public static bool HasNoContent<T>(this IEnumerable<T> obj)
             => !obj.HasContent();
-
-        public static bool IsGeneric(this object obj)
-            => obj.GetType().IsGenericType;
-
-        public static Type GetFirstGenericType(this object obj)
-            => obj.GetType().GenericTypeArguments.FirstOrDefault();
     }
 }
