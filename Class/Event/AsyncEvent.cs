@@ -16,19 +16,14 @@ namespace MariGlobals.Class.Event
 
     public delegate Task AsyncEventHandler<T>(T arg);
 
-    #region NormalAsyncEvent
-
     public sealed class AsyncEvent : BaseAsyncEvent
     {
-        private readonly object _lock = new object();
         private List<AsyncEventHandler> Handlers { get; }
 
         public AsyncEvent()
         {
             Handlers = new List<AsyncEventHandler>();
         }
-
-        #region Register
 
         public void Register(AsyncEventHandler handler)
         {
@@ -39,10 +34,6 @@ namespace MariGlobals.Class.Event
                 Handlers.Add(handler);
         }
 
-        #endregion Register
-
-        #region Unregister
-
         public void Unregister(AsyncEventHandler handler)
         {
             if (handler.HasNoContent())
@@ -51,10 +42,6 @@ namespace MariGlobals.Class.Event
             lock (_lock)
                 Handlers.Remove(handler);
         }
-
-        #endregion Unregister
-
-        #region InvokeAsync
 
         public async Task InvokeAsync()
         {
@@ -67,25 +54,16 @@ namespace MariGlobals.Class.Event
 
             await InvokeAllAsync(handlers).ConfigureAwait(false);
         }
-
-        #endregion InvokeAsync
     }
-
-    #endregion NormalAsyncEvent
-
-    #region GenericAsyncEvent
 
     public sealed class AsyncEvent<T> : BaseAsyncEvent
     {
-        private readonly object _lock = new object();
         private List<AsyncEventHandler<T>> Handlers { get; }
 
-        public AsyncEvent()
+        public AsyncEvent() : base(true)
         {
             Handlers = new List<AsyncEventHandler<T>>();
         }
-
-        #region Register
 
         public void Register(AsyncEventHandler<T> handler)
         {
@@ -96,10 +74,6 @@ namespace MariGlobals.Class.Event
                 Handlers.Add(handler);
         }
 
-        #endregion Register
-
-        #region Unregister
-
         public void Unregister(AsyncEventHandler<T> handler)
         {
             if (handler.HasNoContent())
@@ -108,10 +82,6 @@ namespace MariGlobals.Class.Event
             lock (_lock)
                 Handlers.Remove(handler);
         }
-
-        #endregion Unregister
-
-        #region InvokeAsync
 
         public async Task InvokeAsync(T arg)
         {
@@ -125,9 +95,5 @@ namespace MariGlobals.Class.Event
 
             await InvokeAllAsync(handlers, arg).ConfigureAwait(false);
         }
-
-        #endregion InvokeAsync
     }
-
-    #endregion GenericAsyncEvent
 }

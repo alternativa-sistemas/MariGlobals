@@ -10,10 +10,18 @@ namespace MariGlobals.Class.Event
 {
     public class BaseAsyncEvent
     {
-        public Task InvokeAllAsync<T>(List<T> handlers)
+        private readonly bool IsGeneric;
+        protected readonly object _lock = new object();
+
+        public BaseAsyncEvent(bool isGeneric = false)
+        {
+            IsGeneric = isGeneric;
+        }
+
+        protected Task InvokeAllAsync<T>(List<T> handlers)
             => InvokeAllAsync<T, NullHandler>(handlers);
 
-        public async Task InvokeAllAsync<T, T2>(List<T> handlers, T2 arg = default)
+        protected async Task InvokeAllAsync<T, T2>(List<T> handlers, T2 arg = default)
         {
             var exceptions = new List<Exception>(handlers.Count);
 
@@ -37,10 +45,10 @@ namespace MariGlobals.Class.Event
 
         private List<GenericAsyncEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 obj)
         {
-            if (typeof(T2).IsEquivalentTo(typeof(NullHandler)))
+            if (!IsGeneric)
                 return ConvertToNormal(handlers) as List<GenericAsyncEventHandler<T2>>;
             else
-                return ConvertToGeneric(handlers, obj);
+                return ConvertToGeneric<T1, T2>(handlers);
         }
 
         private List<GenericAsyncEventHandler<NullHandler>> ConvertToNormal<T>(List<T> handlers)
@@ -48,7 +56,7 @@ namespace MariGlobals.Class.Event
                 .Select(a => new GenericAsyncEventHandler<NullHandler>(a as AsyncEventHandler))
                 .ToList();
 
-        private List<GenericAsyncEventHandler<T2>> ConvertToGeneric<T1, T2>(List<T1> handlers, T2 obj)
+        private List<GenericAsyncEventHandler<T2>> ConvertToGeneric<T1, T2>(List<T1> handlers)
             => handlers
                 .Select(a => new GenericAsyncEventHandler<T2>(a as AsyncEventHandler<T2>))
                 .ToList();
