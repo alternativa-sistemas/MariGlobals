@@ -1,4 +1,4 @@
-# MariSocketMiddleware
+# MariGlobas
 
 Global things for all Mari's projects
 
