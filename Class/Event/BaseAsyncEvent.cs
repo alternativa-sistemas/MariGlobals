@@ -23,7 +23,7 @@ namespace MariGlobals.Class.Event
 
         protected async Task InvokeAllAsync<T, T2>(List<T> handlers, T2 arg = default)
         {
-            var exceptions = new List<Exception>(handlers.Count);
+            var exceptions = new Memory<Exception>(new Exception[handlers.Count]);
 
             foreach (var handler in ConvertList(handlers, arg))
             {
@@ -33,17 +33,17 @@ namespace MariGlobals.Class.Event
                 }
                 catch (Exception ex)
                 {
-                    exceptions.Add(ex);
+                    exceptions.TryAdd(ex);
                 }
             }
 
-            if (exceptions.Any())
+            if (exceptions.Span.Length > 0)
                 throw new AggregateException(
                     "Exceptions occured within one or more event handlers. " +
-                    "Check InnerExceptions for details.", exceptions);
+                    "Check InnerExceptions for details.", exceptions.Span.ToArray());
         }
 
-        private List<GenericAsyncEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 obj)
+        private IEnumerable<GenericAsyncEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 obj)
         {
             if (!IsGeneric)
                 return ConvertToNormal(handlers) as List<GenericAsyncEventHandler<T2>>;
@@ -51,14 +51,12 @@ namespace MariGlobals.Class.Event
                 return ConvertToGeneric<T1, T2>(handlers);
         }
 
-        private List<GenericAsyncEventHandler<NullHandler>> ConvertToNormal<T>(List<T> handlers)
+        private IEnumerable<GenericAsyncEventHandler<NullHandler>> ConvertToNormal<T>(List<T> handlers)
             => handlers
-                .Select(a => new GenericAsyncEventHandler<NullHandler>(a as AsyncEventHandler))
-                .ToList();
+                .Select(a => new GenericAsyncEventHandler<NullHandler>(a as AsyncEventHandler));
 
-        private List<GenericAsyncEventHandler<T2>> ConvertToGeneric<T1, T2>(List<T1> handlers)
+        private IEnumerable<GenericAsyncEventHandler<T2>> ConvertToGeneric<T1, T2>(List<T1> handlers)
             => handlers
-                .Select(a => new GenericAsyncEventHandler<T2>(a as AsyncEventHandler<T2>))
-                .ToList();
+                .Select(a => new GenericAsyncEventHandler<T2>(a as AsyncEventHandler<T2>));
     }
 }
