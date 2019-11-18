@@ -13,7 +13,7 @@ namespace MariGlobals.Class.Event
         private readonly bool IsGeneric;
         protected readonly object _lock = new object();
 
-        public BaseAsyncEvent(bool isGeneric = false)
+        internal BaseAsyncEvent(bool isGeneric = false)
         {
             IsGeneric = isGeneric;
         }
