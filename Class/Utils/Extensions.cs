@@ -45,5 +45,13 @@ namespace MariGlobals.Class.Utils
 
             return array;
         }
+
+        public static T[] TryAddMany<T>(this T[] array, params T[] objs)
+        {
+            foreach (var obj in objs)
+                array.TryAdd(obj);
+
+            return array;
+        }
     }
 }

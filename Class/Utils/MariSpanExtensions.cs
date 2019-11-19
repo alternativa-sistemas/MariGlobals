@@ -15,10 +15,19 @@ namespace MariGlobals.Class.Utils
                     continue;
 
                 span[i] = obj;
+
                 return true;
             }
 
             return false;
+        }
+
+        public static Span<T> ForceAdd<T>(this Span<T> span, T obj)
+        {
+            if (span.TryAdd(obj))
+                return span;
+            else
+                return new Span<T>(new T[span.Length * 2].TryAddMany(span.ToArray()).TryAdd(obj));
         }
 
         public static Span<T> AsSpan<T>(this IEnumerable<T> enumerable)
