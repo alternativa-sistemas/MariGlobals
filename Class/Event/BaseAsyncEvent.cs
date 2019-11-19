@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
 namespace MariGlobals.Class.Event
 {
     public class BaseAsyncEvent
@@ -23,7 +25,7 @@ namespace MariGlobals.Class.Event
 
         protected async Task InvokeAllAsync<T, T2>(List<T> handlers, T2 arg = default)
         {
-            var exceptions = new Memory<Exception>(new Exception[handlers.Count]);
+            var exceptions = MariMemoryExtensions.CreateMemory<Exception>(handlers.Count);
 
             foreach (var handler in ConvertList(handlers, arg))
             {
@@ -37,10 +39,10 @@ namespace MariGlobals.Class.Event
                 }
             }
 
-            if (exceptions.Span.Length > 0)
+            if (exceptions.HasContent())
                 throw new AggregateException(
                     "Exceptions occured within one or more event handlers. " +
-                    "Check InnerExceptions for details.", exceptions.Span.ToArray());
+                    "Check InnerExceptions for details.", exceptions.ToArray());
         }
 
         private IEnumerable<GenericAsyncEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 obj)

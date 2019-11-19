@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MariGlobals.Class.Utils
 {
@@ -19,21 +20,63 @@ namespace MariGlobals.Class.Utils
         public static bool HasNoContent<T>(this IEnumerable<T> obj)
             => !obj.HasContent();
 
-        public static bool TryAdd<T>(this Span<T> span, T obj)
+        public static bool OfType<T>(this object obj)
+            where T : class
+            => (obj as T).HasContent();
+
+        public static bool IsTypeOf<T>(this object obj)
+            => obj is T;
+
+        public static async Task TryAsync(this Task task, Func<Exception, Task> exceptionHandler)
         {
-            for (int i = 0; i < span.Length; i++)
+            try
             {
-                if (span[i].HasContent())
-                    continue;
-
-                span[i] = obj;
-                return true;
+                await task;
             }
-
-            return false;
+            catch (Exception ex)
+            {
+                await exceptionHandler(ex);
+            }
         }
 
-        public static bool TryAdd<T>(this Memory<T> memory, T obj)
-            => memory.Span.TryAdd(obj);
+        public static async Task<TResult> TryAsync<TResult>(this Task<TResult> task, Func<Exception, Task> exceptionHandler)
+        {
+            try
+            {
+                return await task;
+            }
+            catch (Exception ex)
+            {
+                await exceptionHandler(ex);
+            }
+
+            return default;
+        }
+
+        public static async ValueTask TryAsync(this ValueTask task, Func<Exception, Task> exceptionHandler)
+        {
+            try
+            {
+                await task;
+            }
+            catch (Exception ex)
+            {
+                await exceptionHandler(ex);
+            }
+        }
+
+        public static async ValueTask<TResult> TryAsync<TResult>(this ValueTask<TResult> task, Func<Exception, Task> exceptionHandler)
+        {
+            try
+            {
+                return await task;
+            }
+            catch (Exception ex)
+            {
+                await exceptionHandler(ex);
+            }
+
+            return default;
+        }
     }
 }
