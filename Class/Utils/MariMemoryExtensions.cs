@@ -16,7 +16,7 @@ namespace MariGlobals.Class.Utils
             if (memory.TryAdd(obj))
                 return memory;
             else
-                return new Memory<T>(new T[memory.Length * 2].TryAddMany(memory.Span.ToArray()).TryAdd(obj));
+                return new Memory<T>(new T[memory.Length * 2].TryAddMany(memory.ToArray()).TryAdd(obj));
         }
 
         public static Memory<T> AsMemory<T>(this IEnumerable<T> enumerable)
