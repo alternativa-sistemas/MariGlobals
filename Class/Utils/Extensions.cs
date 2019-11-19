@@ -17,6 +17,12 @@ namespace MariGlobals.Class.Utils
         public static bool HasNoContent<T>(this IEnumerable<T> obj)
             => !obj.HasContent();
 
+        public static bool HasContent<T>(this T[] obj)
+            => obj != null && obj.Length > 0;
+
+        public static bool HasNoContent<T>(this T[] obj)
+            => !obj.HasContent();
+
         public static bool OfType<T>(this object obj)
             where T : class
             => (obj as T).HasContent();
