@@ -23,5 +23,21 @@ namespace MariGlobals.Class.Utils
 
         public static bool IsTypeOf<T>(this object obj)
             => obj is T;
+
+        public static T[] CreateArray<T>(this T obj, int length = 1)
+            => new T[length].TryAdd(obj);
+
+        public static T[] TryAdd<T>(this T[] array, T obj)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i].HasContent())
+                    continue;
+
+                array[i] = obj;
+            }
+
+            return array;
+        }
     }
 }

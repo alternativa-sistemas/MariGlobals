@@ -33,5 +33,8 @@ namespace MariGlobals.Class.Utils
 
             return default;
         }
+
+        public static async ValueTask<TResult[]> CreateArrayAsync<TResult>(this ValueTask<TResult> task, int length = 1)
+            => new TResult[length].TryAdd(await task);
     }
 }

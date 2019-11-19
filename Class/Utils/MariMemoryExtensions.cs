@@ -24,44 +24,14 @@ namespace MariGlobals.Class.Utils
             return new Memory<T>(arr);
         }
 
-        public static Memory<T> AsMemory<T>(this T obj, int length)
-        {
-            if (length <= 0)
-                throw new ArgumentOutOfRangeException(nameof(length));
-
-            var arr = new T[length];
-            arr[0] = obj;
-            return new Memory<T>(arr);
-        }
-
-        public static Memory<T> AsMemory<T>(this T obj)
-            => new Memory<T>(new T[] { obj });
+        public static Memory<T> AsMemory<T>(this T obj, int length = 1)
+            => new Memory<T>(obj.CreateArray(length));
 
         public static async ValueTask<Memory<T>> AsMemoryAsync<T>(this Task<T> task, int length)
-        {
-            if (length <= 0)
-                throw new ArgumentOutOfRangeException(nameof(length));
-
-            var arr = new T[length];
-            arr[0] = await task;
-            return new Memory<T>(arr);
-        }
-
-        public static async ValueTask<Memory<T>> AsMemoryAsync<T>(this Task<T> task)
-            => new Memory<T>(new T[] { await task });
+            => new Memory<T>(await task.CreateArrayAsync(length));
 
         public static async ValueTask<Memory<T>> AsMemoryAsync<T>(this ValueTask<T> task, int length)
-        {
-            if (length <= 0)
-                throw new ArgumentOutOfRangeException(nameof(length));
-
-            var arr = new T[length];
-            arr[0] = await task;
-            return new Memory<T>(arr);
-        }
-
-        public static async ValueTask<Memory<T>> AsMemoryAsync<T>(this ValueTask<T> task)
-            => new Memory<T>(new T[] { await task });
+            => new Memory<T>(await task.CreateArrayAsync(length));
 
         public static ReadOnlyMemory<T> AsReadOnlyMemory<T>(this IEnumerable<T> enumerable)
             => enumerable.AsMemory();
@@ -72,20 +42,11 @@ namespace MariGlobals.Class.Utils
         public static ReadOnlyMemory<T> AsReadOnlyMemory<T>(this T obj, int length = 1)
             => obj.AsMemory(length);
 
-        public static ReadOnlyMemory<T> AsReadOnlyMemory<T>(this T obj)
-            => obj.AsMemory();
-
         public static async ValueTask<ReadOnlyMemory<T>> AsReadOnlyMemoryAsync<T>(this Task<T> task, int length = 1)
             => await task.AsMemoryAsync(length);
 
-        public static async ValueTask<ReadOnlyMemory<T>> AsReadOnlyMemoryAsync<T>(this Task<T> task)
-            => await task.AsMemoryAsync();
-
         public static async ValueTask<ReadOnlyMemory<T>> ReadOnlyMemoryAsync<T>(this ValueTask<T> task, int length = 1)
-            => await task.AsMemoryAsync();
-
-        public static async ValueTask<ReadOnlyMemory<T>> AsReadOnlyMemoryAsync<T>(this ValueTask<T> task)
-            => await task.AsMemoryAsync();
+            => await task.AsMemoryAsync(length);
 
         public static bool HasContent<T>(this Memory<T> memory)
             => !memory.Equals(null) && !memory.IsEmpty;

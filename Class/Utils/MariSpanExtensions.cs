@@ -35,15 +35,7 @@ namespace MariGlobals.Class.Utils
         }
 
         public static Span<T> AsSpan<T>(this T obj, int length = 1)
-        {
-            var arr = new T[length];
-            arr[0] = obj;
-
-            return new Span<T>(arr);
-        }
-
-        public static Span<T> AsSpan<T>(this T obj)
-            => new Span<T>(new T[] { obj });
+            => new Span<T>(obj.CreateArray(length));
 
         public static ReadOnlySpan<T> AsReadOnlySpan<T>(this IEnumerable<T> enumerable)
             => enumerable.AsSpan();
@@ -53,9 +45,6 @@ namespace MariGlobals.Class.Utils
 
         public static ReadOnlySpan<T> AsReadOnlySpan<T>(this T obj, int length = 1)
             => obj.AsSpan(length);
-
-        public static ReadOnlySpan<T> AsReadOnlySpan<T>(this T obj)
-            => obj.AsSpan();
 
         public static bool HasContent<T>(this Span<T> span)
             => span != null && !span.IsEmpty;
