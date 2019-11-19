@@ -34,6 +34,6 @@ namespace MariGlobals.Class.Utils
         }
 
         public static async Task<TResult[]> CreateArrayAsync<TResult>(this Task<TResult> task, int length = 1)
-            => new TResult[length].TryAdd(await task);
+            => new TResult[length].TryAdd(await task.ConfigureAwait(false));
     }
 }

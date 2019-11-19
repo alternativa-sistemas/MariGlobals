@@ -28,10 +28,10 @@ namespace MariGlobals.Class.Utils
             => new Memory<T>(obj.CreateArray(length));
 
         public static async ValueTask<Memory<T>> AsMemoryAsync<T>(this Task<T> task, int length)
-            => new Memory<T>(await task.CreateArrayAsync(length));
+            => new Memory<T>(await task.CreateArrayAsync(length).ConfigureAwait(false));
 
         public static async ValueTask<Memory<T>> AsMemoryAsync<T>(this ValueTask<T> task, int length)
-            => new Memory<T>(await task.CreateArrayAsync(length));
+            => new Memory<T>(await task.CreateArrayAsync(length).ConfigureAwait(false));
 
         public static ReadOnlyMemory<T> AsReadOnlyMemory<T>(this IEnumerable<T> enumerable)
             => enumerable.AsMemory();
@@ -43,10 +43,10 @@ namespace MariGlobals.Class.Utils
             => obj.AsMemory(length);
 
         public static async ValueTask<ReadOnlyMemory<T>> AsReadOnlyMemoryAsync<T>(this Task<T> task, int length = 1)
-            => await task.AsMemoryAsync(length);
+            => await task.AsMemoryAsync(length).ConfigureAwait(false);
 
         public static async ValueTask<ReadOnlyMemory<T>> ReadOnlyMemoryAsync<T>(this ValueTask<T> task, int length = 1)
-            => await task.AsMemoryAsync(length);
+            => await task.AsMemoryAsync(length).ConfigureAwait(false);
 
         public static bool HasContent<T>(this Memory<T> memory)
             => !memory.Equals(null) && !memory.IsEmpty;
