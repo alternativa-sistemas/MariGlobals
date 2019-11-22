@@ -57,13 +57,13 @@ namespace MariGlobals.Class.Utils
             => await task.AsMemoryAsync(length).ConfigureAwait(false);
 
         public static bool HasContent<T>(this Memory<T> memory)
-            => !memory.Equals(null) && !memory.IsEmpty && memory.FirstOrDefault().HasContent();
+            => !memory.Equals(null) && !memory.IsEmpty && memory.Span[0].HasContent();
 
         public static bool HasNoContent<T>(this Memory<T> memory)
             => !memory.HasContent();
 
         public static bool HasContent<T>(this ReadOnlyMemory<T> memory)
-            => !memory.Equals(null) && !memory.IsEmpty && memory.FirstOrDefault().HasContent();
+            => !memory.Equals(null) && !memory.IsEmpty && memory.Span[0].HasContent();
 
         public static bool HasNoContent<T>(this ReadOnlyMemory<T> memory)
             => !memory.HasContent();

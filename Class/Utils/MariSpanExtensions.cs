@@ -56,13 +56,13 @@ namespace MariGlobals.Class.Utils
             => obj.AsSpan(length);
 
         public static bool HasContent<T>(this Span<T> span)
-            => span != null && !span.IsEmpty && span.FirstOrDefault().HasContent();
+            => span != null && !span.IsEmpty && span[0].HasContent();
 
         public static bool HasNoContent<T>(this Span<T> span)
             => !span.HasContent();
 
         public static bool HasContent<T>(this ReadOnlySpan<T> span)
-            => span != null && !span.IsEmpty && span.FirstOrDefault().HasContent();
+            => span != null && !span.IsEmpty && span[0].HasContent();
 
         public static bool HasNoContent<T>(this ReadOnlySpan<T> span)
             => !span.HasContent();
