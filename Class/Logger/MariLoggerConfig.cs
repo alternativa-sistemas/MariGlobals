@@ -16,8 +16,6 @@ namespace MariGlobals.Class.Logger
             remove => SendLog.Unregister(value);
         }
 
-        public string App { get; set; }
-
         public bool EnableWriter { get; set; } = false;
 
         internal readonly NormalEvent<MariEventLogMessage> SendLog = new NormalEvent<MariEventLogMessage>();
