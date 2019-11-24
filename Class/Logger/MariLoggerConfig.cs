@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MariGlobals.Class.Event;
+using MariGlobals.Structs.Logger;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,30 +10,16 @@ namespace MariGlobals.Class.Logger
 {
     public class MariLoggerConfig
     {
-        public LogLevel MinimumLogLevel { get; set; } = LogLevel.Information;
-
-        public int EventId { get; set; } = 0;
-
-        private readonly object _lock = new object();
-
-        public event Action<LogLevel, Exception, string, string> OnLog
+        public event NormalEventHandler<MariEventLogMessage> OnLog
         {
-            add
-            {
-                lock (_lock)
-                {
-                    _log += value;
-                }
-            }
-            remove
-            {
-                lock (_lock)
-                {
-                    _log -= value;
-                }
-            }
+            add => SendLog.Register(value);
+            remove => SendLog.Unregister(value);
         }
 
-        internal Action<LogLevel, Exception, string, string> _log;
+        public string App { get; set; }
+
+        public bool EnableWriter { get; set; } = false;
+
+        internal readonly NormalEvent<MariEventLogMessage> SendLog = new NormalEvent<MariEventLogMessage>();
     }
 }

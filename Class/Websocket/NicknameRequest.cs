@@ -1,4 +1,4 @@
-﻿using MariGlobals.Enum.Websocket;
+﻿using MariGlobals.Enums.Websocket;
 using MariGlobals.Interfaces.Websocket;
 using System;
 using System.Collections.Generic;

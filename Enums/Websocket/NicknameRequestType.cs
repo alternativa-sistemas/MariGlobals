@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MariGlobals.Enum.Websocket
+namespace MariGlobals.Enums.Websocket
 {
     public enum NicknameRequestType
     {
