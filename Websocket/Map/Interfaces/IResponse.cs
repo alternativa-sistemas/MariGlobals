@@ -2,7 +2,7 @@
 
 namespace MariGlobals.Websocket.Map.Interfaces
 {
-    public interface IResponse : IGuildExchange
+    public interface IResponse : IExchange
     {
         int StatusCode { get; set; }
 

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MariGlobals.Utils
 {
@@ -52,6 +54,20 @@ namespace MariGlobals.Utils
                 array.TryAdd(obj);
 
             return array;
+        }
+
+        public static string ToSha256(this string str)
+        {
+            using (var cript = new SHA256Managed())
+            {
+                var hash = new StringBuilder();
+                byte[] bytes = cript.ComputeHash(Encoding.UTF8.GetBytes(str));
+
+                foreach (var computedByte in bytes)
+                    hash.Append(computedByte.ToString("x2"));
+
+                return hash.ToString();
+            }
         }
     }
 }
