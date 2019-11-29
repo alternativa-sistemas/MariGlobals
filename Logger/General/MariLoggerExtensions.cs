@@ -43,57 +43,27 @@ namespace MariGlobals.Logger.General
         }
 
         public static LogLevel ConvertLevel(this LogSeverity severity)
-        {
-            switch (severity)
+            => severity switch
             {
-                default:
-                    throw new InvalidOperationException($"Invalid {nameof(LogSeverity)} type: {severity}");
-
-                case LogSeverity.Critical:
-                    return LogLevel.Critical;
-
-                case LogSeverity.Debug:
-                    return LogLevel.Trace;
-
-                case LogSeverity.Error:
-                    return LogLevel.Error;
-
-                case LogSeverity.Info:
-                    return LogLevel.Information;
-
-                case LogSeverity.Verbose:
-                    return LogLevel.Debug;
-
-                case LogSeverity.Warning:
-                    return LogLevel.Warning;
-            }
-        }
+                LogSeverity.Critical => LogLevel.Critical,
+                LogSeverity.Debug => LogLevel.Trace,
+                LogSeverity.Error => LogLevel.Error,
+                LogSeverity.Info => LogLevel.Information,
+                LogSeverity.Verbose => LogLevel.Debug,
+                LogSeverity.Warning => LogLevel.Warning,
+                _ => throw new InvalidOperationException($"Invalid {nameof(LogSeverity)} type: {severity}"),
+            };
 
         public static (Color Color, string Abbreviation) LogLevelInfo(this LogLevel logLevel)
-        {
-            switch (logLevel)
+            => logLevel switch
             {
-                case LogLevel.Information:
-                    return (Color.SpringGreen, "INFO");
-
-                case LogLevel.Debug:
-                    return (Color.MediumPurple, "DBUG");
-
-                case LogLevel.Trace:
-                    return (Color.MediumPurple, "TRCE");
-
-                case LogLevel.Critical:
-                    return (Color.Crimson, "CRIT");
-
-                case LogLevel.Error:
-                    return (Color.Crimson, "EROR");
-
-                case LogLevel.Warning:
-                    return (Color.Orange, "WARN");
-
-                default:
-                    return (Color.Tomato, "UKNW");
-            }
-        }
+                LogLevel.Information => (Color.SpringGreen, "INFO"),
+                LogLevel.Debug => (Color.MediumPurple, "DBUG"),
+                LogLevel.Trace => (Color.MediumPurple, "TRCE"),
+                LogLevel.Critical => (Color.Crimson, "CRIT"),
+                LogLevel.Error => (Color.Crimson, "EROR"),
+                LogLevel.Warning => (Color.Orange, "WARN"),
+                _ => (Color.Tomato, "UKNW"),
+            };
     }
 }
