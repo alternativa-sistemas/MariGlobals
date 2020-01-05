@@ -58,16 +58,14 @@ namespace MariGlobals.Utils
 
         public static string ToSha256(this string str)
         {
-            using (var cript = new SHA256Managed())
-            {
-                var hash = new StringBuilder();
-                byte[] bytes = cript.ComputeHash(Encoding.UTF8.GetBytes(str));
+            using var cript = new SHA256Managed();
+            var hash = new StringBuilder();
+            byte[] bytes = cript.ComputeHash(Encoding.UTF8.GetBytes(str));
 
-                foreach (var computedByte in bytes)
-                    hash.Append(computedByte.ToString("x2"));
+            foreach (var computedByte in bytes)
+                hash.Append(computedByte.ToString("x2"));
 
-                return hash.ToString();
-            }
+            return hash.ToString();
         }
     }
 }
