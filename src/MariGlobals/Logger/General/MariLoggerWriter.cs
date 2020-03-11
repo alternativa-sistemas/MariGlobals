@@ -79,14 +79,9 @@ namespace MariGlobals.Logger.General
             if (CanCreateThread)
             {
                 var instance = this;
-                _ = Task.Run(async ()
-                    => await instance.WriteNextLogAsync()
-                        .TryAsync(ExceptionHandlerAsync));
+                _ = Task.Run(WriteNextLogAsync);
             }
         }
-
-        private ValueTask ExceptionHandlerAsync(Exception ex)
-            => throw ex;
 
         public void Dispose()
         {
