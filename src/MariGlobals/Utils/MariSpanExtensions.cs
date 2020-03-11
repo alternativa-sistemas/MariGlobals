@@ -29,10 +29,10 @@ namespace MariGlobals.Utils
                 return new Span<T>(new T[span.Length * 2].TryAddMany(span.ToArray()).TryAdd(obj));
         }
 
-        public static Span<T> AsSpan<T>(this IEnumerable<T> enumerable)
+        public static Span<T> ToSpan<T>(this IEnumerable<T> enumerable)
             => new Span<T>(enumerable.ToArray());
 
-        public static Span<T> AsSpan<T>(this ICollection<T> enumerable, int length)
+        public static Span<T> ToSpan<T>(this ICollection<T> enumerable, int length)
         {
             if (length < enumerable.Count)
                 throw new ArgumentOutOfRangeException(nameof(length));
@@ -45,11 +45,11 @@ namespace MariGlobals.Utils
         public static Span<T> AsSpan<T>(this T obj, int length = 1)
             => new Span<T>(obj.CreateArray(length));
 
-        public static ReadOnlySpan<T> AsReadOnlySpan<T>(this IEnumerable<T> enumerable)
-            => enumerable.AsSpan();
+        public static ReadOnlySpan<T> ToReadOnlySpan<T>(this IEnumerable<T> enumerable)
+            => enumerable.ToSpan();
 
-        public static ReadOnlySpan<T> AsReadOnlySpan<T>(this ICollection<T> enumerable, int length)
-            => enumerable.AsSpan(length);
+        public static ReadOnlySpan<T> ToReadOnlySpan<T>(this ICollection<T> enumerable, int length)
+            => enumerable.ToSpan(length);
 
         public static ReadOnlySpan<T> AsReadOnlySpan<T>(this T obj, int length = 1)
             => obj.AsSpan(length);

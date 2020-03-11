@@ -20,7 +20,6 @@ namespace MariGlobals.Logger.General
             SendLog = new NormalEvent<MariEventLogMessage>();
             OnLogSender = new NormalEvent<MariEventLogMessage>();
 
-            QueueStopped = true;
             IsDisposed = false;
 
             OnLogReceived += LogReceived;
@@ -42,12 +41,10 @@ namespace MariGlobals.Logger.General
 
         private readonly NormalEvent<MariEventLogMessage> OnLogSender;
 
-        private bool QueueStopped { get; set; }
-
         public bool IsDisposed { get; private set; }
 
         private bool CanCreateThread
-            => QueueStopped && Semaphore.CurrentCount > 0;
+            => Semaphore.CurrentCount > 0;
 
         private void LogReceived(MariEventLogMessage message)
         {
@@ -67,13 +64,8 @@ namespace MariGlobals.Logger.General
 
         private void WriteNextLog()
         {
-            if (LogsQueue.Count <= 0)
+            if (LogsQueue.Count > 0)
             {
-                QueueStopped = true;
-            }
-            else
-            {
-                QueueStopped = false;
                 WriteLog(LogsQueue.Dequeue());
             }
         }

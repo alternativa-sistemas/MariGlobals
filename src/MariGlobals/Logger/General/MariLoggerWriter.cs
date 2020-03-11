@@ -18,7 +18,6 @@ namespace MariGlobals.Logger.General
             Semaphore = new SemaphoreSlim(1, 1);
             LogsQueue = new Queue<MariEventLogMessage>();
             WriteLog = new NormalEvent<MariEventLogMessage>();
-            QueueStopped = true;
             IsDisposed = false;
             OnLog += LogReceived;
         }
@@ -34,12 +33,11 @@ namespace MariGlobals.Logger.General
         private readonly SemaphoreSlim Semaphore;
 
         private readonly Queue<MariEventLogMessage> LogsQueue;
-        private bool QueueStopped { get; set; }
 
         public bool IsDisposed { get; private set; }
 
         private bool CanCreateThread
-            => QueueStopped && Semaphore.CurrentCount > 0;
+            => Semaphore.CurrentCount > 0;
 
         private void LogReceived(MariEventLogMessage message)
         {
@@ -70,13 +68,8 @@ namespace MariGlobals.Logger.General
 
         private async ValueTask WriteNextLogAsync()
         {
-            if (LogsQueue.Count <= 0)
+            if (LogsQueue.Count > 0)
             {
-                QueueStopped = true;
-            }
-            else
-            {
-                QueueStopped = false;
                 await WriteLogAsync(LogsQueue.Dequeue());
             }
         }
