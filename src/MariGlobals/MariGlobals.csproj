@@ -22,8 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="mglobals.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="mglobals.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 </Project>
