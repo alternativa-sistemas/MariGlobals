@@ -27,6 +27,14 @@ namespace MariGlobals.Executor
 
         protected readonly AsyncEvent<T> SendObj;
 
+        protected event AsyncEventHandler<QueueError<T>> OnError
+        {
+            add => _onError.Register(value);
+            remove => _onError.Unregister(value);
+        }
+
+        private readonly AsyncEvent<QueueError<T>> _onError;
+
         private readonly SemaphoreSlim Semaphore;
 
         private readonly ConcurrentQueue<T> Queue;
@@ -48,12 +56,21 @@ namespace MariGlobals.Executor
 
         private async Task ExecuteAsync(T obj)
         {
-            await Semaphore.WaitAsync();
+            try
+            {
+                await Semaphore.WaitAsync();
 
-            await ActionAsync(obj);
-
-            Semaphore.Release();
-            await ExecuteNextAsync();
+                await ActionAsync(obj);
+            }
+            catch (Exception ex)
+            {
+                await _onError.InvokeAsync(new QueueError<T>(ex, obj));
+            }
+            finally
+            {
+                Semaphore.Release();
+                await ExecuteNextAsync();
+            }
         }
 
         private async Task ExecuteNextAsync()

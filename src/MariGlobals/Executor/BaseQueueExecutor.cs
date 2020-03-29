@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,6 +26,14 @@ namespace MariGlobals.Executor
 
         protected readonly NormalEvent<T> SendObj;
 
+        protected event NormalEventHandler<QueueError<T>> OnError
+        {
+            add => _onError.Register(value);
+            remove => _onError.Unregister(value);
+        }
+
+        private readonly NormalEvent<QueueError<T>> _onError;
+
         private readonly SemaphoreSlim Semaphore;
 
         private readonly ConcurrentQueue<T> Queue;
@@ -44,12 +53,20 @@ namespace MariGlobals.Executor
 
         private void Execute(T obj)
         {
-            Semaphore.WaitAsync();
-
-            Action(obj);
-
-            Semaphore.Release();
-            ExecuteNext();
+            try
+            {
+                Semaphore.WaitAsync();
+                Action(obj);
+            }
+            catch (Exception ex)
+            {
+                _onError.Invoke(new QueueError<T>(ex, obj));
+            }
+            finally
+            {
+                Semaphore.Release();
+                ExecuteNext();
+            }
         }
 
         private void ExecuteNext()
