@@ -11,6 +11,7 @@ namespace MariGlobals.Executor
         public BaseQueueExecutor(int maxThreads = 1)
         {
             Semaphore = new SemaphoreSlim(1, maxThreads);
+            _onError = new NormalEvent<QueueError<T>>();
             Queue = new ConcurrentQueue<T>();
             SendObj = new NormalEvent<T>();
             IsDisposed = false;
