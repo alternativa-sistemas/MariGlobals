@@ -13,9 +13,7 @@ namespace MariGlobals.Executor
         {
             Semaphore = new SemaphoreSlim(1, maxThreads);
             Queue = new ConcurrentQueue<T>();
-            SendObj = new AsyncEvent<T>();
             IsDisposed = false;
-
             OnObjReceived += ObjReceived;
         }
 
@@ -33,7 +31,7 @@ namespace MariGlobals.Executor
             remove => _onError.Unregister(value);
         }
 
-        private readonly AsyncEvent<QueueError<T>> _onError;
+        private readonly AsyncEvent<QueueError<T>> _onError = new AsyncEvent<QueueError<T>>();
 
         private readonly SemaphoreSlim Semaphore;
 

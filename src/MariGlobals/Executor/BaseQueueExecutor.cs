@@ -11,11 +11,9 @@ namespace MariGlobals.Executor
         public BaseQueueExecutor(int maxThreads = 1)
         {
             Semaphore = new SemaphoreSlim(1, maxThreads);
-            _onError = new NormalEvent<QueueError<T>>();
             Queue = new ConcurrentQueue<T>();
             SendObj = new NormalEvent<T>();
             IsDisposed = false;
-
             OnObjReceived += ObjReceived;
         }
 
@@ -27,13 +25,13 @@ namespace MariGlobals.Executor
 
         protected readonly NormalEvent<T> SendObj;
 
-        protected event NormalEventHandler<QueueError<T>> OnError
+        protected event NormalEventHandler<QueueError<T>> OnErro
         {
             add => _onError.Register(value);
             remove => _onError.Unregister(value);
         }
 
-        private readonly NormalEvent<QueueError<T>> _onError;
+        private readonly NormalEvent<QueueError<T>> _onError = new NormalEvent<QueueError<T>>();
 
         private readonly SemaphoreSlim Semaphore;
 
