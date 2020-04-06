@@ -23,7 +23,7 @@ namespace MariGlobals.Executor
             remove => SendObj.Unregister(value);
         }
 
-        protected readonly AsyncEvent<T> SendObj;
+        protected readonly AsyncEvent<T> SendObj = new AsyncEvent<T>();
 
         protected event AsyncEventHandler<QueueError<T>> OnError
         {
