@@ -26,7 +26,7 @@ namespace MariGlobals.Event.Base
         {
             var exceptions = MariMemoryExtensions.CreateMemory<Exception>(handlers.Count);
 
-            foreach (var handler in ConvertList<T, T2>(handlers, arg))
+            foreach (var handler in ConvertList<T, T2>(handlers, arg).ToList())
             {
                 try
                 {
@@ -44,20 +44,22 @@ namespace MariGlobals.Event.Base
                     "Check InnerExceptions for details.", exceptions.ToArray());
         }
 
-        private IEnumerable<GenericNormalEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 arg)
+        private List<GenericNormalEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 arg)
         {
             if (!IsGeneric)
-                return ConvertToNormal(handlers) as IEnumerable<GenericNormalEventHandler<T2>>;
+                return ConvertToNormal(handlers) as List<GenericNormalEventHandler<T2>>;
             else
-                return ConvertToGeneric<T1, T2>(handlers);
+                return ConvertToGeneric<T1, T2>(handlers).ToList();
         }
 
-        private IEnumerable<GenericNormalEventHandler<NullHandler>> ConvertToNormal<T>(List<T> handlers)
+        private List<GenericNormalEventHandler<NullHandler>> ConvertToNormal<T>(List<T> handlers)
             => handlers
-                .Select(a => new GenericNormalEventHandler<NullHandler>(a as NormalEventHandler));
+                .Select(a => new GenericNormalEventHandler<NullHandler>(a as NormalEventHandler))
+                .ToList();
 
-        private IEnumerable<GenericNormalEventHandler<T2>> ConvertToGeneric<T1, T2>(List<T1> handlers)
+        private List<GenericNormalEventHandler<T2>> ConvertToGeneric<T1, T2>(List<T1> handlers)
             => handlers
-                .Select(a => new GenericNormalEventHandler<T2>(a as NormalEventHandler<T2>));
+                .Select(a => new GenericNormalEventHandler<T2>(a as NormalEventHandler<T2>))
+                .ToList();
     }
 }
