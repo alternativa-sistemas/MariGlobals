@@ -42,6 +42,9 @@ namespace MariGlobals.Logger.General
 
         private void LogReceived(MariEventLogMessage message)
         {
+            if (string.IsNullOrWhiteSpace(message.Message) || string.IsNullOrWhiteSpace(message.SectionName))
+                return;
+                
             LogsQueue.Enqueue(message);
             TryCreateNewThread();
         }
