@@ -3,6 +3,7 @@ using MariGlobals.Event.Concrete;
 using MariGlobals.Logger.Entities;
 using MariGlobals.Utils;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
@@ -16,7 +17,7 @@ namespace MariGlobals.Logger.General
         internal MariLoggerWriter(int _)
         {
             Semaphore = new SemaphoreSlim(1, 1);
-            LogsQueue = new Queue<MariEventLogMessage>();
+            LogsQueue = new ConcurrentQueue<MariEventLogMessage>();
             WriteLog = new NormalEvent<MariEventLogMessage>();
             IsDisposed = false;
             OnLog += LogReceived;
@@ -32,7 +33,7 @@ namespace MariGlobals.Logger.General
 
         private readonly SemaphoreSlim Semaphore;
 
-        private readonly Queue<MariEventLogMessage> LogsQueue;
+        private readonly ConcurrentQueue<MariEventLogMessage> LogsQueue;
 
         public bool IsDisposed { get; private set; }
 
@@ -68,9 +69,9 @@ namespace MariGlobals.Logger.General
 
         private async ValueTask WriteNextLogAsync()
         {
-            if (LogsQueue.Count > 0)
+            if (LogsQueue.Count > 0 && LogsQueue.TryDequeue(out var message))
             {
-                await WriteLogAsync(LogsQueue.Dequeue());
+                await WriteLogAsync(message);
             }
         }
 

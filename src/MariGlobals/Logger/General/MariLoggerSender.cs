@@ -1,6 +1,7 @@
 ﻿using MariGlobals.Event.Concrete;
 using MariGlobals.Logger.Entities;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,12 +12,12 @@ namespace MariGlobals.Logger.General
     {
         private readonly SemaphoreSlim Semaphore;
 
-        private readonly Queue<MariEventLogMessage> LogsQueue;
+        private readonly ConcurrentQueue<MariEventLogMessage> LogsQueue;
 
         public MariLoggerSender(int _)
         {
             Semaphore = new SemaphoreSlim(1, 1);
-            LogsQueue = new Queue<MariEventLogMessage>();
+            LogsQueue = new ConcurrentQueue<MariEventLogMessage>();
             SendLog = new NormalEvent<MariEventLogMessage>();
             OnLogSender = new NormalEvent<MariEventLogMessage>();
 
@@ -64,9 +65,9 @@ namespace MariGlobals.Logger.General
 
         private void WriteNextLog()
         {
-            if (LogsQueue.Count > 0)
+            if (LogsQueue.Count > 0 && LogsQueue.TryDequeue(out var message))
             {
-                WriteLog(LogsQueue.Dequeue());
+                WriteLog(message);
             }
         }
 
