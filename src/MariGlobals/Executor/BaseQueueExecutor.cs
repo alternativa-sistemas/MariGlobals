@@ -26,13 +26,13 @@ namespace MariGlobals.Executor
         /// <summary>
         /// Fired when a error is generated in the execution of an action.
         /// </summary>
-        protected event NormalEventHandler<QueueError<T>> OnError
+        protected event SyncEventHandler<QueueError<T>> OnError
         {
             add => _onError.Register(value);
             remove => _onError.Unregister(value);
         }
 
-        private readonly NormalEvent<QueueError<T>> _onError = new NormalEvent<QueueError<T>>();
+        private readonly SyncEvent<QueueError<T>> _onError = new SyncEvent<QueueError<T>>();
 
         private readonly SemaphoreSlim Semaphore;
 

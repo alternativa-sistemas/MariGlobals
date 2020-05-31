@@ -7,34 +7,34 @@ namespace MariGlobals.Events
     /// <summary>
     /// A delegate representing an event subscriber.
     /// </summary>
-    public delegate void NormalEventHandler();
+    public delegate void SyncEventHandler();
 
     /// <summary>
     /// A delegate representing an event subscriber.
     /// </summary>
     /// <param name="arg">The object of the current event.</param>
-    public delegate void NormalEventHandler<T>(T arg);
+    public delegate void SyncEventHandler<T>(T arg);
 
     /// <summary>
     /// Represents an event that will be invoked synchronously.
     /// </summary>
-    public class NormalEvent : BaseNormalEvent
+    public class SyncEvent : BaseSyncEvent
     {
-        private List<NormalEventHandler> Handlers { get; }
+        private List<SyncEventHandler> Handlers { get; }
 
         /// <summary>
-        /// Creates a new instance of <see cref="NormalEvent" />.
+        /// Creates a new instance of <see cref="SyncEvent" />.
         /// </summary>
-        public NormalEvent()
+        public SyncEvent()
         {
-            Handlers = new List<NormalEventHandler>();
+            Handlers = new List<SyncEventHandler>();
         }
 
         /// <summary>
         /// Subscribe to the current event.
         /// </summary>
         /// <param name="handler">The delegate to be subscribed.</param>
-        public void Register(NormalEventHandler handler)
+        public void Register(SyncEventHandler handler)
         {
             if (handler.HasNoContent())
                 throw new ArgumentNullException(nameof(handler), "Handler cannot be null");
@@ -47,7 +47,7 @@ namespace MariGlobals.Events
         /// Unsubscribe to the current event.
         /// </summary>
         /// <param name="handler">The delegate to be unsubscribed.</param>
-        public void Unregister(NormalEventHandler handler)
+        public void Unregister(SyncEventHandler handler)
         {
             if (handler.HasNoContent())
                 throw new ArgumentNullException(nameof(handler), "Handler cannot be null");
@@ -61,7 +61,7 @@ namespace MariGlobals.Events
         /// </summary>
         public void Invoke()
         {
-            List<NormalEventHandler> handlers = null;
+            List<SyncEventHandler> handlers = null;
             lock (_lock)
                 handlers = Handlers;
 
@@ -75,23 +75,23 @@ namespace MariGlobals.Events
     /// <summary>
     /// Represents an event that will be invoked synchronously.
     /// </summary>
-    public class NormalEvent<T> : BaseNormalEvent
+    public class SyncEvent<T> : BaseSyncEvent
     {
-        private List<NormalEventHandler<T>> Handlers { get; }
+        private List<SyncEventHandler<T>> Handlers { get; }
 
         /// <summary>
-        /// Creates a new instance of <see cref="NormalEvent{T}" />.
+        /// Creates a new instance of <see cref="SyncEvent{T}" />.
         /// </summary>
-        public NormalEvent() : base(true)
+        public SyncEvent() : base(true)
         {
-            Handlers = new List<NormalEventHandler<T>>();
+            Handlers = new List<SyncEventHandler<T>>();
         }
 
         /// <summary>
         /// Subscribe to the current event.
         /// </summary>
         /// <param name="handler">The delegate to be subscribed.</param>
-        public void Register(NormalEventHandler<T> handler)
+        public void Register(SyncEventHandler<T> handler)
         {
             if (handler.HasNoContent())
                 throw new ArgumentNullException(nameof(handler), "Handler cannot be null");
@@ -104,7 +104,7 @@ namespace MariGlobals.Events
         /// Unsubscribe to the current event.
         /// </summary>
         /// <param name="handler">The delegate to be unsubscribed.</param>
-        public void Unregister(NormalEventHandler<T> handler)
+        public void Unregister(SyncEventHandler<T> handler)
         {
             if (handler.HasNoContent())
                 throw new ArgumentNullException(nameof(handler), "Handler cannot be null");
@@ -119,7 +119,7 @@ namespace MariGlobals.Events
         /// <param name="arg">The event object to be passed to all subscribers.</param>
         public void Invoke(T arg)
         {
-            List<NormalEventHandler<T>> handlers = null;
+            List<SyncEventHandler<T>> handlers = null;
 
             lock (_lock)
                 handlers = Handlers;

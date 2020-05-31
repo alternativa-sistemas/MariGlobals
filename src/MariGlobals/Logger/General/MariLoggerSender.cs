@@ -7,16 +7,16 @@ namespace MariGlobals.Logger.General
     {
         public MariLoggerSender()
         {
-            OnLogSender = new NormalEvent<MariEventLogMessage>();
+            OnLogSender = new SyncEvent<MariEventLogMessage>();
         }
 
-        public event NormalEventHandler<MariEventLogMessage> OnLog
+        public event SyncEventHandler<MariEventLogMessage> OnLog
         {
             add => OnLogSender.Register(value);
             remove => OnLogSender.Unregister(value);
         }
 
-        private readonly NormalEvent<MariEventLogMessage> OnLogSender;
+        private readonly SyncEvent<MariEventLogMessage> OnLogSender;
 
         public void AddLog(MariEventLogMessage message)
         {

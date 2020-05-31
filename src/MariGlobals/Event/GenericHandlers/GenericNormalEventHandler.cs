@@ -1,19 +1,19 @@
 ﻿namespace MariGlobals.Events.GenericHandlers
 {
-    internal readonly struct GenericNormalEventHandler<T>
+    internal readonly struct GenericSyncEventHandler<T>
     {
-        private readonly NormalEventHandler NormalHandler;
-        private readonly NormalEventHandler<T> GenericHandler;
+        private readonly SyncEventHandler NormalHandler;
+        private readonly SyncEventHandler<T> GenericHandler;
         private readonly bool IsGeneric;
 
-        internal GenericNormalEventHandler(NormalEventHandler handler)
+        internal GenericSyncEventHandler(SyncEventHandler handler)
         {
             NormalHandler = handler;
             GenericHandler = default;
             IsGeneric = false;
         }
 
-        internal GenericNormalEventHandler(NormalEventHandler<T> handler)
+        internal GenericSyncEventHandler(SyncEventHandler<T> handler)
         {
             NormalHandler = default;
             GenericHandler = handler;

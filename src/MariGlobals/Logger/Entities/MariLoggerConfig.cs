@@ -10,7 +10,7 @@ namespace MariGlobals.Logger
         /// <summary>
         /// An event fired when any log message is created.
         /// </summary>
-        public event NormalEventHandler<MariEventLogMessage> OnLog
+        public event SyncEventHandler<MariEventLogMessage> OnLog
         {
             add => SendLog.Register(value);
             remove => SendLog.Unregister(value);
@@ -22,6 +22,6 @@ namespace MariGlobals.Logger
         /// </summary>
         public bool EnableWriter { get; set; } = false;
 
-        internal readonly NormalEvent<MariEventLogMessage> SendLog = new NormalEvent<MariEventLogMessage>();
+        internal readonly SyncEvent<MariEventLogMessage> SendLog = new SyncEvent<MariEventLogMessage>();
     }
 }

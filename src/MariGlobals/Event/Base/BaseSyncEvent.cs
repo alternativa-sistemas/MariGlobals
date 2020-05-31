@@ -11,7 +11,7 @@ namespace MariGlobals.Events
     /// <summary>
     /// Base class for sync events.
     /// </summary>
-    public class BaseNormalEvent
+    public class BaseSyncEvent
     {
         private readonly bool IsGeneric;
 
@@ -20,7 +20,7 @@ namespace MariGlobals.Events
         /// </summary>
         protected readonly object _lock = new object();
 
-        internal BaseNormalEvent(bool isGeneric = false)
+        internal BaseSyncEvent(bool isGeneric = false)
         {
             IsGeneric = isGeneric;
         }
@@ -59,22 +59,22 @@ namespace MariGlobals.Events
                     "Check InnerExceptions for details.", exceptions.ToArray());
         }
 
-        private List<GenericNormalEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 arg)
+        private List<GenericSyncEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 arg)
         {
             if (!IsGeneric)
-                return ConvertToNormal(handlers) as List<GenericNormalEventHandler<T2>>;
+                return ConvertToNormal(handlers) as List<GenericSyncEventHandler<T2>>;
             else
                 return ConvertToGeneric<T1, T2>(handlers).ToList();
         }
 
-        private List<GenericNormalEventHandler<NullHandler>> ConvertToNormal<T>(List<T> handlers)
+        private List<GenericSyncEventHandler<NullHandler>> ConvertToNormal<T>(List<T> handlers)
             => handlers
-                .Select(a => new GenericNormalEventHandler<NullHandler>(a as NormalEventHandler))
+                .Select(a => new GenericSyncEventHandler<NullHandler>(a as SyncEventHandler))
                 .ToList();
 
-        private List<GenericNormalEventHandler<T2>> ConvertToGeneric<T1, T2>(List<T1> handlers)
+        private List<GenericSyncEventHandler<T2>> ConvertToGeneric<T1, T2>(List<T1> handlers)
             => handlers
-                .Select(a => new GenericNormalEventHandler<T2>(a as NormalEventHandler<T2>))
+                .Select(a => new GenericSyncEventHandler<T2>(a as SyncEventHandler<T2>))
                 .ToList();
     }
 }
