@@ -19,7 +19,7 @@ namespace MariGlobals.Logger.General
             _config = config;
             _loggers = new ConcurrentDictionary<string, MariLogger>();
             _configuration = configuration;
-            _sender = new MariLoggerSender(default);
+            _sender = new MariLoggerSender();
             _writer = new MariLoggerWriter(default);
 
             _sender.OnLog += OnLog;

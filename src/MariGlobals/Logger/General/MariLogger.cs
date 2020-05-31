@@ -35,7 +35,7 @@ namespace MariGlobals.Logger.General
                 if (string.IsNullOrWhiteSpace(message))
                     return;
 
-                _sender.SendLog.Invoke(new MariEventLogMessage(message, Name, logLevel, exception));
+                _sender.AddLog(new MariEventLogMessage(message, Name, logLevel, exception));
             }
             catch { }
         }
