@@ -2,7 +2,7 @@ using System;
 
 namespace MariGlobals.Executor
 {
-    public class QueueError<T>
+    public class QueueError<T> : EventArgs
     {
         internal QueueError(Exception exception, T queueObject)
         {
