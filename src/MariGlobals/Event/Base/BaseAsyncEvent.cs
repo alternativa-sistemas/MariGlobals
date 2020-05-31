@@ -15,15 +15,19 @@ namespace MariGlobals.Events
     public class BaseAsyncEvent
     {
         private readonly bool IsGeneric;
+        private readonly bool InvokeConcurrent;
+        private readonly bool WaitAll;
 
         /// <summary>
         /// An <see cref="object" /> to use for lock threads in this event.
         /// </summary>
         protected readonly object _lock = new object();
 
-        internal BaseAsyncEvent(bool isGeneric = false)
+        internal BaseAsyncEvent(bool isGeneric = false, bool concurrent = true, bool waitAll = false)
         {
             IsGeneric = isGeneric;
+            InvokeConcurrent = concurrent;
+            WaitAll = waitAll;
         }
 
         /// <summary>
@@ -41,23 +45,49 @@ namespace MariGlobals.Events
         protected async Task InvokeAllAsync<T, T2>(List<T> handlers, T2 arg = default)
         {
             var exceptions = MariMemoryExtensions.CreateMemory<Exception>(handlers.Count);
+            var tasks = MariMemoryExtensions.CreateMemory<Task>(handlers.Count);
 
             foreach (var handler in ConvertList<T, T2>(handlers, arg).ToList())
             {
-                try
+                if (InvokeConcurrent)
                 {
-                    await handler.InvokeAsync(arg).ConfigureAwait(false);
+                    tasks.TryAdd(Task.Run(() => InvokeHandlerAsync(handler, arg, exceptions)));
                 }
-                catch (Exception ex)
+                else
                 {
-                    exceptions.TryAdd(ex);
+                    await InvokeHandlerAsync(handler, arg, exceptions).ConfigureAwait(false);
                 }
+            }
+
+            if (InvokeConcurrent && WaitAll)
+            {
+                var allTasks = Task.WhenAll(tasks.ToArray());
+
+                await allTasks.ConfigureAwait(false);
             }
 
             if (exceptions.HasContent())
                 throw new AggregateException(
                     "Exceptions occured within one or more event handlers. " +
                     "Check InnerExceptions for details.", exceptions.ToArray());
+        }
+
+        private async Task InvokeHandlerAsync<T>(
+            GenericAsyncEventHandler<T> handler,
+            T arg,
+            Memory<Exception> exceptions)
+        {
+            try
+            {
+                await handler.InvokeAsync(arg).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                if (InvokeConcurrent)
+                    throw ex;
+
+                exceptions.TryAdd(ex);
+            }
         }
 
         private List<GenericAsyncEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 arg)

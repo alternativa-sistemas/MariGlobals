@@ -36,6 +36,7 @@ namespace MariGlobals.Events
         /// <param name="waitAll">If false and <param ref="concurrent" /> true this event will 
         /// wait all invokes finishes, default is false.</param>
         public AsyncEvent(bool concurrent = true, bool waitAll = false)
+            : base(false, concurrent, waitAll)
         {
             Handlers = new List<AsyncEventHandler>();
         }
@@ -96,7 +97,8 @@ namespace MariGlobals.Events
         /// default is true.</param>
         /// <param name="waitAll">If false and <param ref="concurrent" /> true this event will 
         /// wait all invokes finishes, default is false.</param>
-        public AsyncEvent(bool concurrent = true, bool waitAll = false) : base(true)
+        public AsyncEvent(bool concurrent = true, bool waitAll = false)
+            : base(true, concurrent, waitAll)
         {
             Handlers = new List<AsyncEventHandler<T>>();
         }
