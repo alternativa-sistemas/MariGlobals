@@ -18,7 +18,7 @@ namespace MariGlobals.Events
     /// <summary>
     /// Represents an event that will be invoked synchronously.
     /// </summary>
-    public sealed class NormalEvent : BaseNormalEvent
+    public class NormalEvent : BaseNormalEvent
     {
         private List<NormalEventHandler> Handlers { get; }
 
@@ -75,7 +75,7 @@ namespace MariGlobals.Events
     /// <summary>
     /// Represents an event that will be invoked synchronously.
     /// </summary>
-    public sealed class NormalEvent<T> : BaseNormalEvent
+    public class NormalEvent<T> : BaseNormalEvent
     {
         private List<NormalEventHandler<T>> Handlers { get; }
 

@@ -24,7 +24,7 @@ namespace MariGlobals.Events
     /// <summary>
     /// Represents an event that will be invoked asynchronously.
     /// </summary>
-    public sealed class AsyncEvent : BaseAsyncEvent
+    public class AsyncEvent : BaseAsyncEvent
     {
         private List<AsyncEventHandler> Handlers { get; }
 
@@ -81,7 +81,7 @@ namespace MariGlobals.Events
     /// <summary>
     /// Represents an event that will be invoked asynchronously.
     /// </summary>
-    public sealed class AsyncEvent<T> : BaseAsyncEvent
+    public class AsyncEvent<T> : BaseAsyncEvent
     {
         private List<AsyncEventHandler<T>> Handlers { get; }
 
