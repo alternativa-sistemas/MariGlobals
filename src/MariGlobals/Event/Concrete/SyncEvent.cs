@@ -28,7 +28,7 @@ namespace MariGlobals.Events
         /// </summary>
         /// <param name="concurrent">If true all subscribers this event will invokes concurrently, 
         /// default is true.</param>
-        public SyncEvent(bool concurrent = true)
+        public SyncEvent(bool concurrent = true) : base(false, concurrent)
         {
             Handlers = new List<SyncEventHandler>();
         }
@@ -88,7 +88,7 @@ namespace MariGlobals.Events
         /// </summary>
         /// <param name="concurrent">If true all subscribers this event will invokes concurrently, 
         /// default is true.</param>
-        public SyncEvent(bool concurrent = true) : base(true)
+        public SyncEvent(bool concurrent = true) : base(true, concurrent)
         {
             Handlers = new List<SyncEventHandler<T>>();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using MariGlobals.Events.GenericHandlers;
 using MariGlobals.Extensions;
 
@@ -14,15 +15,17 @@ namespace MariGlobals.Events
     public class BaseSyncEvent
     {
         private readonly bool IsGeneric;
+        private readonly bool InvokeConcurrent;
 
         /// <summary>
         /// An <see cref="object" /> to use for lock threads in this event.
         /// </summary>
         protected readonly object _lock = new object();
 
-        internal BaseSyncEvent(bool isGeneric = false)
+        internal BaseSyncEvent(bool isGeneric = false, bool concurrent = true)
         {
             IsGeneric = isGeneric;
+            InvokeConcurrent = concurrent;
         }
 
         /// <summary>
@@ -43,13 +46,13 @@ namespace MariGlobals.Events
 
             foreach (var handler in ConvertList<T, T2>(handlers, arg).ToList())
             {
-                try
+                if (InvokeConcurrent)
                 {
-                    handler.Invoke(arg);
+                    _ = Task.Run(() => InvokeHandler(handler, arg, exceptions));
                 }
-                catch (Exception ex)
+                else
                 {
-                    exceptions.TryAdd(ex);
+                    InvokeHandler(handler, arg, exceptions);
                 }
             }
 
@@ -57,6 +60,24 @@ namespace MariGlobals.Events
                 throw new AggregateException(
                     "Exceptions occured within one or more event handlers. " +
                     "Check InnerExceptions for details.", exceptions.ToArray());
+        }
+
+        private void InvokeHandler<T>(
+            GenericSyncEventHandler<T> handler,
+            T arg,
+            Memory<Exception> exceptions)
+        {
+            try
+            {
+                handler.Invoke(arg);
+            }
+            catch (Exception ex)
+            {
+                if (InvokeConcurrent)
+                    throw ex;
+
+                exceptions.TryAdd(ex);
+            }
         }
 
         private List<GenericSyncEventHandler<T2>> ConvertList<T1, T2>(List<T1> handlers, T2 arg)
