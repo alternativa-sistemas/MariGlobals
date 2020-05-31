@@ -24,8 +24,11 @@ namespace MariGlobals.Events
 
         /// <summary>
         /// Creates a new instance of <see cref="SyncEvent" />.
+        /// OBS: This event type doesn't has waitAll param to avoid possible deadlocks.
         /// </summary>
-        public SyncEvent()
+        /// <param name="concurrent">If true all subscribers this event will invokes concurrently, 
+        /// default is true.</param>
+        public SyncEvent(bool concurrent = true)
         {
             Handlers = new List<SyncEventHandler>();
         }
@@ -81,8 +84,11 @@ namespace MariGlobals.Events
 
         /// <summary>
         /// Creates a new instance of <see cref="SyncEvent{T}" />.
+        /// OBS: This event type doesn't has waitAll param to avoid possible deadlocks.
         /// </summary>
-        public SyncEvent() : base(true)
+        /// <param name="concurrent">If true all subscribers this event will invokes concurrently, 
+        /// default is true.</param>
+        public SyncEvent(bool concurrent = true) : base(true)
         {
             Handlers = new List<SyncEventHandler<T>>();
         }
