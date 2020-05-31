@@ -25,8 +25,14 @@ namespace MariGlobals.Utils
         {
             if (span.TryAdd(obj))
                 return span;
-            else
-                return new Span<T>(new T[span.Length * 2].TryAddMany(span.ToArray()).TryAdd(obj));
+
+            var newSpan = new Span<T>(new T[unchecked(span.Length * 2)]);
+
+            span.CopyTo(newSpan);
+
+            newSpan.TryAdd(obj);
+
+            return newSpan;
         }
 
         public static Span<T> ToSpan<T>(this IEnumerable<T> enumerable)

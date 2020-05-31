@@ -14,14 +14,20 @@ namespace MariGlobals.Utils
         {
             if (memory.TryAdd(obj))
                 return memory;
-            else
-                return new Memory<T>(new T[memory.Length * 2].TryAddMany(memory.ToArray()).TryAdd(obj));
+
+            var newMemory = new Memory<T>(new T[unchecked(memory.Length * 2)]);
+
+            memory.CopyTo(newMemory);
+
+            newMemory.TryAdd(obj);
+
+            return newMemory;
         }
 
-        public static Memory<T> AsMemory<T>(this IEnumerable<T> enumerable)
+        public static Memory<T> ToMemory<T>(this IEnumerable<T> enumerable)
             => new Memory<T>(enumerable.ToArray());
 
-        public static Memory<T> AsMemory<T>(this ICollection<T> enumerable, int length)
+        public static Memory<T> ToMemory<T>(this ICollection<T> enumerable, int length)
         {
             if (length < enumerable.Count)
                 throw new ArgumentOutOfRangeException(nameof(length));
@@ -40,11 +46,11 @@ namespace MariGlobals.Utils
         public static async ValueTask<Memory<T>> AsMemoryAsync<T>(this ValueTask<T> task, int length = 1)
             => new Memory<T>(await task.CreateArrayAsync(length).ConfigureAwait(false));
 
-        public static ReadOnlyMemory<T> AsReadOnlyMemory<T>(this IEnumerable<T> enumerable)
-            => enumerable.AsMemory();
+        public static ReadOnlyMemory<T> ToReadOnlyMemory<T>(this IEnumerable<T> enumerable)
+            => enumerable.ToMemory();
 
-        public static ReadOnlyMemory<T> AsReadOnlyMemory<T>(this ICollection<T> enumerable, int length)
-            => enumerable.AsMemory(length);
+        public static ReadOnlyMemory<T> ToReadOnlyMemory<T>(this ICollection<T> enumerable, int length)
+            => enumerable.ToMemory(length);
 
         public static ReadOnlyMemory<T> AsReadOnlyMemory<T>(this T obj, int length = 1)
             => obj.AsMemory(length);

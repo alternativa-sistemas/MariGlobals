@@ -60,7 +60,7 @@ namespace MariGlobals.Utils
         {
             using var cript = new SHA256Managed();
             var hash = new StringBuilder();
-            byte[] bytes = cript.ComputeHash(Encoding.UTF8.GetBytes(str));
+            var bytes = cript.ComputeHash(Encoding.UTF8.GetBytes(str));
 
             foreach (var computedByte in bytes)
                 hash.Append(computedByte.ToString("x2"));
