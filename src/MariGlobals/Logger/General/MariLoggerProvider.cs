@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
+using System.Text;
 
 namespace MariGlobals.Logger.General
 {
@@ -16,8 +17,9 @@ namespace MariGlobals.Logger.General
         public MariLoggerProvider(MariLoggerConfig config, IConfigurationSection configuration)
         {
             _config = config;
-            _loggers = new ConcurrentDictionary<string, MariLogger>();
             _configuration = configuration;
+
+            _loggers = new ConcurrentDictionary<string, MariLogger>();
             _sender = new MariLoggerSender();
             _writer = new MariLoggerWriter();
 
@@ -37,13 +39,43 @@ namespace MariGlobals.Logger.General
             if (_loggers.TryGetValue(categoryName, out var logger))
                 return logger;
 
-            var category = _configuration.GetSection(categoryName.Split('.')[0]);
-            if (category.Value.HasNoContent())
-                category = _configuration.GetSection("Default");
+            var category = GetSection(categoryName);
 
             logger = new MariLogger(categoryName, category, _sender);
+
             _loggers.TryAdd(categoryName, logger);
+
             return logger;
+        }
+
+        private IConfigurationSection GetSection(string categoryName)
+        {
+            var defaultCategory = _configuration.GetSection("Default");
+
+            if (string.IsNullOrWhiteSpace(categoryName))
+                return defaultCategory;
+
+            var names = categoryName.Split('.');
+            var builder = new StringBuilder();
+
+            var category = defaultCategory;
+
+            for (var i = 0; i < names.Length; i++)
+            {
+                var name = names[i];
+
+                if (i == 0)
+                    builder.Append(name);
+                else
+                    builder.Append($".{name}");
+
+                var section = _configuration.GetSection(builder.ToString());
+
+                if (section.HasContent())
+                    category = section;
+            }
+
+            return category;
         }
 
         public void Dispose()
