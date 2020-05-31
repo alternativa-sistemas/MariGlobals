@@ -20,7 +20,7 @@ namespace MariGlobals.Logger.General
             _loggers = new ConcurrentDictionary<string, MariLogger>();
             _configuration = configuration;
             _sender = new MariLoggerSender();
-            _writer = new MariLoggerWriter(default);
+            _writer = new MariLoggerWriter();
 
             _sender.OnLog += OnLog;
         }
@@ -28,7 +28,7 @@ namespace MariGlobals.Logger.General
         private void OnLog(MariEventLogMessage message)
         {
             if (_config.EnableWriter)
-                _writer.WriteLog.Invoke(message);
+                _writer.AddLog(message);
 
             _config.SendLog.Invoke(message);
         }

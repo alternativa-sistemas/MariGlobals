@@ -41,7 +41,7 @@ namespace MariGlobals.Logger.General
             return config;
         }
 
-        public static (Color Color, string Abbreviation) LogLevelInfo(this LogLevel logLevel)
+        internal static (Color Color, string Abbreviation) LogLevelInfo(this LogLevel logLevel)
             => logLevel switch
             {
                 LogLevel.Information => (Color.SpringGreen, "INFO"),
