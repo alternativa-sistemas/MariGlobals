@@ -1,8 +1,4 @@
-﻿using Discord;
-using MariGlobals.Logger.General;
-using Microsoft.Extensions.Logging;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using Microsoft.Extensions.Logging;
 using System;
 
 namespace MariGlobals.Logger.Entities
@@ -31,7 +27,6 @@ namespace MariGlobals.Logger.Entities
             Date = DateTime.Now;
         }
 
-        [BsonId]
         public string Id { get; set; }
 
         public string Message { get; set; }
@@ -42,7 +37,6 @@ namespace MariGlobals.Logger.Entities
 
         public Exception Exception { get; set; }
 
-        [BsonRepresentation(BsonType.String)]
         public LogLevel LogLevel { get; set; }
 
         public string FullMessage { get => ToString(); set { FullMessage = value; } }
