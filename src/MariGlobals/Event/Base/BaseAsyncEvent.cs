@@ -27,14 +27,14 @@ namespace MariGlobals.Events
         }
 
         /// <summary>
-        /// Invoke all subscribers.
+        /// Asynchronously invokes all subscribers.
         /// </summary>
         /// <param name="handlers">All subscribers.</param>
         protected Task InvokeAllAsync<T>(List<T> handlers)
             => InvokeAllAsync<T, NullHandler>(handlers);
 
         /// <summary>
-        /// Invoke all subscribers.
+        /// Asynchronously invokes all subscribers.
         /// </summary>
         /// <param name="handlers">All subscribers.</param>
         /// <param name="arg">The event object to be passed to all subscribers. </param>

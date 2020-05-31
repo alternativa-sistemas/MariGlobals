@@ -8,9 +8,16 @@ using MariGlobals.Extensions;
 
 namespace MariGlobals.Events
 {
+    /// <summary>
+    /// Base class for sync events.
+    /// </summary>
     public class BaseNormalEvent
     {
         private readonly bool IsGeneric;
+
+        /// <summary>
+        /// An <see cref="object" /> to use for lock threads in this event.
+        /// </summary>
         protected readonly object _lock = new object();
 
         internal BaseNormalEvent(bool isGeneric = false)
@@ -18,9 +25,18 @@ namespace MariGlobals.Events
             IsGeneric = isGeneric;
         }
 
+        /// <summary>
+        /// Synchronously invokes all subscribers.
+        /// </summary>
+        /// <param name="handlers">All subscribers.</param>
         protected void InvokeAll<T>(List<T> handlers)
             => InvokeAll<T, NullHandler>(handlers);
 
+        /// <summary>
+        /// Synchronously invokes all subscribers.
+        /// </summary>
+        /// <param name="handlers">All subscribers.</param>
+        /// <param name="arg">The event object to be passed to all subscribers. </param>
         protected void InvokeAll<T, T2>(List<T> handlers, T2 arg = default)
         {
             var exceptions = MariMemoryExtensions.CreateMemory<Exception>(handlers.Count);
