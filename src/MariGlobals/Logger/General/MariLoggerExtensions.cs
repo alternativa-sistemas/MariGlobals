@@ -1,5 +1,4 @@
-﻿using Discord;
-using MariGlobals.Logger.Entities;
+﻿using MariGlobals.Logger.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -41,18 +40,6 @@ namespace MariGlobals.Logger.General
             configure(config);
             return config;
         }
-
-        public static LogLevel ConvertLevel(this LogSeverity severity)
-            => severity switch
-            {
-                LogSeverity.Critical => LogLevel.Critical,
-                LogSeverity.Debug => LogLevel.Trace,
-                LogSeverity.Error => LogLevel.Error,
-                LogSeverity.Info => LogLevel.Information,
-                LogSeverity.Verbose => LogLevel.Debug,
-                LogSeverity.Warning => LogLevel.Warning,
-                _ => throw new InvalidOperationException($"Invalid {nameof(LogSeverity)} type: {severity}"),
-            };
 
         public static (Color Color, string Abbreviation) LogLevelInfo(this LogLevel logLevel)
             => logLevel switch

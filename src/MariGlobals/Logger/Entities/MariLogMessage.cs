@@ -20,17 +20,6 @@ namespace MariGlobals.Logger.Entities
             Date = DateTime.Now;
         }
 
-        public MariLogMessage(LogMessage logMessage, string app)
-        {
-            App = app;
-            Message = logMessage.Message;
-            Source = logMessage.Source;
-            Exception = logMessage.Exception;
-            LogLevel = logMessage.Severity.ConvertLevel();
-            Id = Guid.NewGuid().ToString();
-            Date = DateTime.Now;
-        }
-
         public MariLogMessage(MariEventLogMessage message, string app)
         {
             App = app;
