@@ -7,16 +7,26 @@ using Color = System.Drawing.Color;
 
 namespace MariGlobals.Logger
 {
+    /// <summary>
+    /// Extensions for MariGlobals.Logger.
+    /// </summary>
     public static class MariLoggerExtensions
     {
+        /// <summary>
+        /// Add the MariLogger to the Service container.
+        /// </summary>
+        /// <param name="loggingBuilder">The <see cref="ILoggingBuilder" />.</param>
+        /// <param name="section">The <see cref="IConfiguration" </param>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public static ILoggingBuilder AddMariLogger(
             this ILoggingBuilder loggingBuilder,
             IConfiguration section,
             MariLoggerConfig config)
             => loggingBuilder.AddProvider(new MariLoggerProvider(config,
                 section
-                    .GetSection("Logging")
-                    .GetSection("LogLevel")));
+                    ?.GetSection("Logging")
+                    ?.GetSection("LogLevel")));
 
         public static ILoggingBuilder AddMariLogger(this ILoggingBuilder loggingBuilder, IConfiguration section)
             => loggingBuilder.AddMariLogger(section, new MariLoggerConfig());

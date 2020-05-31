@@ -50,7 +50,7 @@ namespace MariGlobals.Logger.General
 
         private IConfigurationSection GetSection(string categoryName)
         {
-            var defaultCategory = _configuration.GetSection("Default");
+            var defaultCategory = _configuration?.GetSection("Default");
 
             if (string.IsNullOrWhiteSpace(categoryName))
                 return defaultCategory;

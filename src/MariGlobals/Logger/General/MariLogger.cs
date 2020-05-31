@@ -21,7 +21,7 @@ namespace MariGlobals.Logger.General
             => default;
 
         public bool IsEnabled(LogLevel logLevel)
-            => (LogLevel)Enum.Parse(typeof(LogLevel), _configuration.Value) <= logLevel;
+            => (LogLevel)Enum.Parse(typeof(LogLevel), _configuration?.Value ?? "Information") <= logLevel;
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
