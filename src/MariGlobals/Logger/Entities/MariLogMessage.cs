@@ -39,8 +39,6 @@ namespace MariGlobals.Logger.Entities
 
         public LogLevel LogLevel { get; set; }
 
-        public string FullMessage { get => ToString(); set { FullMessage = value; } }
-
         public DateTime Date { get; set; }
     }
 }
