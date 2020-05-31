@@ -16,9 +16,9 @@ namespace MariGlobals.Logger
         /// Add the MariLogger to the Service container.
         /// </summary>
         /// <param name="loggingBuilder">The <see cref="ILoggingBuilder" />.</param>
-        /// <param name="section">The <see cref="IConfiguration" </param>
-        /// <param name="config"></param>
-        /// <returns></returns>
+        /// <param name="section">The <see cref="IConfiguration" /> with the loglevels config. </param>
+        /// <param name="config">The <see cref="MariLoggerConfig" /> with Mari's logger configuration.</param>
+        /// <returns>The current service container.</returns>
         public static ILoggingBuilder AddMariLogger(
             this ILoggingBuilder loggingBuilder,
             IConfiguration section,
@@ -28,24 +28,57 @@ namespace MariGlobals.Logger
                     ?.GetSection("Logging")
                     ?.GetSection("LogLevel")));
 
+        /// <summary>
+        /// Add the MariLogger to the Service container.
+        /// </summary>
+        /// <param name="loggingBuilder">The <see cref="ILoggingBuilder" />.</param>
+        /// <param name="section">The <see cref="IConfiguration" /> with the loglevels config. </param>
+        /// <returns>The current service container.</returns>
         public static ILoggingBuilder AddMariLogger(this ILoggingBuilder loggingBuilder, IConfiguration section)
             => loggingBuilder.AddMariLogger(section, new MariLoggerConfig());
 
+        /// <summary>
+        /// Add the MariLogger to the Service container.
+        /// </summary>
+        /// <param name="loggingBuilder">The <see cref="ILoggingBuilder" />.</param>
+        /// <param name="section">The <see cref="IConfiguration" /> with the loglevels config. </param>
+        /// <param name="configure">An action of the <see cref="MariLoggerConfig" /> with Mari's logger configuration.</param>
+        /// <returns>The current service container.</returns>
         public static ILoggingBuilder AddMariLogger(
             this ILoggingBuilder loggingBuilder,
             IConfiguration section,
             Action<MariLoggerConfig> configure)
             => loggingBuilder.AddMariLogger(section, configure.ConfigureConfigEvent());
 
+        /// <summary>
+        /// Add the MariLogger to the Service container.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection" />.</param>
+        /// <param name="section">The <see cref="IConfiguration" /> with the loglevels config. </param>
+        /// <param name="config">The <see cref="MariLoggerConfig" /> with Mari's logger configuration.</param>
+        /// <returns>The current service container.</returns>    
         public static IServiceCollection AddMariLogger(
             this IServiceCollection services,
             IConfiguration section,
             MariLoggerConfig config)
             => services.AddLogging(a => a.AddMariLogger(section, config));
 
+        /// <summary>
+        /// Add the MariLogger to the Service container.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection" />.</param>
+        /// <param name="section">The <see cref="IConfiguration" /> with the loglevels config. </param>
+        /// <returns>The current service container.</returns>    
         public static IServiceCollection AddMariLogger(this IServiceCollection services, IConfiguration section)
             => services.AddMariLogger(section, new MariLoggerConfig());
 
+        /// <summary>
+        /// Add the MariLogger to the Service container.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection" />.</param>
+        /// <param name="section">The <see cref="IConfiguration" /> with the loglevels config. </param>
+        /// <param name="configure">An action of the <see cref="MariLoggerConfig" /> with Mari's logger configuration.</param>
+        /// <returns>The current service container.</returns>
         public static IServiceCollection AddMariLogger(
             this IServiceCollection services,
             IConfiguration section,
