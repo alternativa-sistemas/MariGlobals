@@ -57,8 +57,8 @@ namespace MariGlobals.Extensions
         public static ReadOnlySpan<T> ToReadOnlySpan<T>(this ICollection<T> enumerable, int length)
             => enumerable.ToSpan(length);
 
-        public static ReadOnlySpan<T> AsReadOnlySpan<T>(this T obj, int length = 1)
-            => obj.AsSpan(length);
+        public static ReadOnlySpan<T> AsReadOnlySpan<T>(this T obj)
+            => obj.AsSpan();
 
         public static bool HasContent<T>(this Span<T> span)
             => span != null && !span.IsEmpty && span[0].HasContent();
