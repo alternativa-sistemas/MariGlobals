@@ -230,7 +230,7 @@ namespace MariGlobals.Extensions
             => memory.HasContent() ? memory.Span[memory.Length - 1] : default;
 
         /// <summary>
-        /// Creates a memory of <typeparam ref="T" /> with the specified length.
+        /// Creates a <see cref="Memory{T}" /> of <typeparam ref="T" /> with the specified length.
         /// </summary>
         /// <param name="length">The max length of the <see cref="Memory{T}" /> to be created.</param>
         /// <typeparam name="T">The type of the new <see cref="Memory{T}" />.</typeparam>
