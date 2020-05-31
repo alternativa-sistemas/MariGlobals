@@ -1,14 +1,9 @@
 ﻿using Colorful;
-using MariGlobals.Event.Concrete;
 using MariGlobals.Executor;
-using MariGlobals.Logger.Entities;
-using MariGlobals.Utils;
+using MariGlobals.Extensions;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
-using System.Threading.Tasks;
 using Console = Colorful.Console;
 
 namespace MariGlobals.Logger.General

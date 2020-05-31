@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MariGlobals.Utils
+namespace MariGlobals.Extensions
 {
     public static class MariMemoryExtensions
     {

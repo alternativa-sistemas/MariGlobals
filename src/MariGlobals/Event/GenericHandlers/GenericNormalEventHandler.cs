@@ -1,6 +1,4 @@
-﻿using MariGlobals.Event.Concrete;
-
-namespace MariGlobals.Event.GenericHandlers
+﻿namespace MariGlobals.Events.GenericHandlers
 {
     internal readonly struct GenericNormalEventHandler<T>
     {

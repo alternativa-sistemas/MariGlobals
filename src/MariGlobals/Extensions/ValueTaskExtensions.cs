@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace MariGlobals.Utils
+namespace MariGlobals.Extensions
 {
-    public static class TaskExtensions
+    public static class ValueTaskExtensions
     {
-        public static async Task TryAsync(this Task task, Func<Exception, Task> exceptionHandler)
+        public static async ValueTask TryAsync(this ValueTask task, Func<Exception, ValueTask> exceptionHandler)
         {
             try
             {
@@ -17,7 +17,7 @@ namespace MariGlobals.Utils
             }
         }
 
-        public static async Task<TResult> TryAsync<TResult>(this Task<TResult> task, Func<Exception, Task> exceptionHandler)
+        public static async ValueTask<TResult> TryAsync<TResult>(this ValueTask<TResult> task, Func<Exception, ValueTask> exceptionHandler)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace MariGlobals.Utils
             return default;
         }
 
-        public static async Task<TResult[]> CreateArrayAsync<TResult>(this Task<TResult> task, int length = 1)
+        public static async ValueTask<TResult[]> CreateArrayAsync<TResult>(this ValueTask<TResult> task, int length = 1)
             => new TResult[length].TryAdd(await task.ConfigureAwait(false));
     }
 }

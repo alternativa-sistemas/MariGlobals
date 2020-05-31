@@ -1,11 +1,5 @@
-﻿using MariGlobals.Event.Concrete;
+﻿using MariGlobals.Events;
 using MariGlobals.Executor;
-using MariGlobals.Logger.Entities;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MariGlobals.Logger.General
 {

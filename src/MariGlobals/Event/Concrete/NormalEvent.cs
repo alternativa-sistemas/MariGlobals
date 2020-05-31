@@ -1,9 +1,8 @@
-﻿using MariGlobals.Event.Base;
-using MariGlobals.Utils;
+﻿using MariGlobals.Extensions;
 using System;
 using System.Collections.Generic;
 
-namespace MariGlobals.Event.Concrete
+namespace MariGlobals.Events
 {
     public delegate void NormalEventHandler();
 

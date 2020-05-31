@@ -1,10 +1,9 @@
-﻿using MariGlobals.Event.Base;
-using MariGlobals.Utils;
+﻿using MariGlobals.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MariGlobals.Event.Concrete
+namespace MariGlobals.Events
 {
     //Thanks for D#+.
     //https://github.com/DSharpPlus/DSharpPlus/blob/master/DSharpPlus/AsyncEvent.cs

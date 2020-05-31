@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 
-namespace MariGlobals.Logger.Entities
+namespace MariGlobals.Logger
 {
     public readonly struct MariEventLogMessage
     {

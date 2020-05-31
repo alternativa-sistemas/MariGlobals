@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace MariGlobals.Utils
+namespace MariGlobals.Extensions
 {
     public static class MariGlobalsExtensions
     {

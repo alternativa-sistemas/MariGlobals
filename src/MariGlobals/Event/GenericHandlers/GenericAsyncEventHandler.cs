@@ -1,7 +1,6 @@
-﻿using MariGlobals.Event.Concrete;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace MariGlobals.Event.GenericHandlers
+namespace MariGlobals.Events.GenericHandlers
 {
     internal readonly struct GenericAsyncEventHandler<T>
     {

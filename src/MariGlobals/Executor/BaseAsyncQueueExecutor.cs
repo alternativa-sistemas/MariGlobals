@@ -2,8 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
-using MariGlobals.Event.Concrete;
-using MariGlobals.Utils;
+using MariGlobals.Events;
 
 namespace MariGlobals.Executor
 {

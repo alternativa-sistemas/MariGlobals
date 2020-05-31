@@ -1,6 +1,6 @@
-﻿using MariGlobals.Event.Concrete;
+﻿using MariGlobals.Events;
 
-namespace MariGlobals.Logger.Entities
+namespace MariGlobals.Logger
 {
     public class MariLoggerConfig
     {

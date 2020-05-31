@@ -1,13 +1,12 @@
-﻿using MariGlobals.Event.Concrete;
-using MariGlobals.Event.GenericHandlers;
-using MariGlobals.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MariGlobals.Events.GenericHandlers;
+using MariGlobals.Extensions;
 
 #pragma warning disable IDE0060 // Remove unused parameter
 
-namespace MariGlobals.Event.Base
+namespace MariGlobals.Events
 {
     public class BaseNormalEvent
     {

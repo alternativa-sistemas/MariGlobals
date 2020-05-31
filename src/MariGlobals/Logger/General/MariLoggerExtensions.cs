@@ -1,11 +1,11 @@
-﻿using MariGlobals.Logger.Entities;
+﻿using MariGlobals.Logger.General;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using Color = System.Drawing.Color;
 
-namespace MariGlobals.Logger.General
+namespace MariGlobals.Logger
 {
     public static class MariLoggerExtensions
     {

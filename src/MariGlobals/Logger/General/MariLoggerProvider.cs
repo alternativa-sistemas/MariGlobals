@@ -1,5 +1,4 @@
-﻿using MariGlobals.Logger.Entities;
-using MariGlobals.Utils;
+﻿using MariGlobals.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;

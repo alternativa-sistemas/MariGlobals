@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MariGlobals.Utils
+namespace MariGlobals.Extensions
 {
     public static class MariSpanExtensions
     {
