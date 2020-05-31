@@ -122,6 +122,7 @@ namespace MariGlobals.Events
         /// <summary>
         /// Asynchronously invokes all subscribers.
         /// </summary>
+        /// <param name="arg">The event object to be passed to all subscribers.</param>
         public async Task InvokeAsync(T arg)
         {
             List<AsyncEventHandler<T>> handlers = null;
