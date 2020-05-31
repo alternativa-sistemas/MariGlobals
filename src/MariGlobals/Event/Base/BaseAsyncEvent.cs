@@ -9,9 +9,16 @@ using MariGlobals.Extensions;
 
 namespace MariGlobals.Events
 {
+    /// <summary>
+    /// Base class for async events.
+    /// </summary>
     public class BaseAsyncEvent
     {
         private readonly bool IsGeneric;
+
+        /// <summary>
+        /// An <see cref="object" /> to use for lock threads in this event.
+        /// </summary>
         protected readonly object _lock = new object();
 
         internal BaseAsyncEvent(bool isGeneric = false)
@@ -19,9 +26,18 @@ namespace MariGlobals.Events
             IsGeneric = isGeneric;
         }
 
+        /// <summary>
+        /// Invoke all subscribers.
+        /// </summary>
+        /// <param name="handlers">All subscribers.</param>
         protected Task InvokeAllAsync<T>(List<T> handlers)
             => InvokeAllAsync<T, NullHandler>(handlers);
 
+        /// <summary>
+        /// Invoke all subscribers.
+        /// </summary>
+        /// <param name="handlers">All subscribers.</param>
+        /// <param name="arg">The event object to be passed to all subscribers. </param>
         protected async Task InvokeAllAsync<T, T2>(List<T> handlers, T2 arg = default)
         {
             var exceptions = MariMemoryExtensions.CreateMemory<Exception>(handlers.Count);
