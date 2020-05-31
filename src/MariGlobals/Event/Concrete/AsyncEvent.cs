@@ -31,7 +31,11 @@ namespace MariGlobals.Events
         /// <summary>
         /// Creates a new instance of <see cref="AsyncEvent" />.
         /// </summary>
-        public AsyncEvent()
+        /// <param name="concurrent">If true all subscribers this event will invokes concurrently, 
+        /// default is true.</param>
+        /// <param name="waitAll">If false and <param ref="concurrent" /> true this event will 
+        /// wait all invokes finishes, default is false.</param>
+        public AsyncEvent(bool concurrent = true, bool waitAll = false)
         {
             Handlers = new List<AsyncEventHandler>();
         }
@@ -88,7 +92,11 @@ namespace MariGlobals.Events
         /// <summary>
         /// Creates a new instance of <see cref="AsyncEvent{T}" />.
         /// </summary>
-        public AsyncEvent() : base(true)
+        /// <param name="concurrent">If true all subscribers this event will invokes concurrently, 
+        /// default is true.</param>
+        /// <param name="waitAll">If false and <param ref="concurrent" /> true this event will 
+        /// wait all invokes finishes, default is false.</param>
+        public AsyncEvent(bool concurrent = true, bool waitAll = false) : base(true)
         {
             Handlers = new List<AsyncEventHandler<T>>();
         }
