@@ -34,7 +34,7 @@ namespace MariGlobals.Utils
         public static Memory<T> AsMemory<T>(this T obj, int length = 1)
             => new Memory<T>(obj.CreateArray(length));
 
-        public static async ValueTask<Memory<T>> AsMemoryAsync<T>(this Task<T> task, int length = 1)
+        public static async Task<Memory<T>> AsMemoryAsync<T>(this Task<T> task, int length = 1)
             => new Memory<T>(await task.CreateArrayAsync(length).ConfigureAwait(false));
 
         public static async ValueTask<Memory<T>> AsMemoryAsync<T>(this ValueTask<T> task, int length = 1)
@@ -49,7 +49,7 @@ namespace MariGlobals.Utils
         public static ReadOnlyMemory<T> AsReadOnlyMemory<T>(this T obj, int length = 1)
             => obj.AsMemory(length);
 
-        public static async ValueTask<ReadOnlyMemory<T>> AsReadOnlyMemoryAsync<T>(this Task<T> task, int length = 1)
+        public static async Task<ReadOnlyMemory<T>> AsReadOnlyMemoryAsync<T>(this Task<T> task, int length = 1)
             => await task.AsMemoryAsync(length).ConfigureAwait(false);
 
         public static async ValueTask<ReadOnlyMemory<T>> ReadOnlyMemoryAsync<T>(this ValueTask<T> task, int length = 1)
