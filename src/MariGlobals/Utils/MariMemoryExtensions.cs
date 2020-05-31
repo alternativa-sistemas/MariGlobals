@@ -81,8 +81,5 @@ namespace MariGlobals.Utils
 
         public static Memory<T> CreateMemory<T>(int length = 4)
             => new Memory<T>(new T[length]);
-
-        public static ReadOnlyMemory<T> CreateReadOnlyMemory<T>(int length = 4)
-            => CreateMemory<T>(length);
     }
 }

@@ -80,8 +80,5 @@ namespace MariGlobals.Utils
 
         public static Span<T> CreateSpan<T>(int length = 4)
             => new Span<T>(new T[length]);
-
-        public static ReadOnlySpan<T> CreateReadOnlySpan<T>(int length = 4)
-            => CreateSpan<T>(length);
     }
 }
