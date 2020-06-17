@@ -2,11 +2,12 @@
 
 Global things for all Mari's projects
 
-
 # Usage
+
 **MariGlobals** is an agreggate of global things of all other Mari's projects.
 
 ## AsyncEvent
+
 You can simply creates an async event with all things already handled (lock, multiples handlers, etc).
 <br>
 Unfortunatelly if you want 2 or more parameters in your event you'll need to create your own EventArgs or something like.
@@ -14,7 +15,8 @@ Unfortunatelly if you want 2 or more parameters in your event you'll need to cre
 **Obs:** You can use an AsyncEvent without any args too.
 
 ### Creating an AsyncEvent with args.
-```csharp 
+
+```csharp
 using MariGlobals.Class.Event;
 using System;
 using System.Threading.Tasks;
@@ -43,7 +45,9 @@ namespace Example
     }
 }
 ```
+
 ### Creating an AsyncEvent without args
+
 ```csharp
 using MariGlobals.Class.Event;
 using System;
@@ -71,4 +75,5 @@ namespace Example
 ```
 
 # License
-**MariGlobals** is provided under [The GNU GPLv3 License.](https://gitlab.com/MariBot/MariGlobals/blob/master/LICENSE)
+
+**MariGlobals** is provided under [The MIT License.](https://github.com/MariBotOfficial/MariGlobals/blob/master/LICENSE)
