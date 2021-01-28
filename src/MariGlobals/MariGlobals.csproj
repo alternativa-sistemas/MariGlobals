@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>true</WarningsAsErrors>
     <PackageId>MariGlobals</PackageId>
     <Version>3.0.0-alpha</Version>
     <Authors>renanrcp</Authors>
