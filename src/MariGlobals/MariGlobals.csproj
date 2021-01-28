@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <PackageId>MariGlobals</PackageId>
-    <Version>2.0.1-alpha</Version>
+    <Version>3.0.0-alpha</Version>
     <Authors>renanrcp</Authors>
     <Company>MariBot</Company>
     <Description>Global things for all Mari's projects</Description>
-    <Copyright>2019 - 2020 renanrcp. All rights reserved.</Copyright>
+    <Copyright>2019 - 2021 renanrcp. All rights reserved.</Copyright>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageIcon>mglobals.png</PackageIcon>
