@@ -166,5 +166,52 @@ namespace MariGlobals.Extensions
             var result = await task.ConfigureAwait(false);
             return continueFunc(result);
         }
+
+        /// <summary>
+        /// Do a continuation action when this <paramref name="task" /> completes.
+        /// </summary>
+        /// <param name="task">The current task to wait.</param>
+        /// <param name="continueAction">The continuation of this task.</param>
+        /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="continueAction" /> is null.</exception>
+        public static Task Then(this Task task, Action continueAction)
+        {
+            CheckParameters(task, continueAction);
+
+            return task.ContinueWith((_) => continueAction());
+        }
+
+        /// <summary>
+        /// Do a continuation action when this <paramref name="task" /> completes.
+        /// </summary>
+        /// <param name="task">The current task to wait.</param>
+        /// <param name="continueAction">The continuation of this task.</param>
+        /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="continueAction" /> is null.</exception>
+        public static Task Then(this Task task, Action<Task> continueAction)
+        {
+            CheckParameters(task, continueAction);
+
+            return task.ContinueWith(continueAction);
+        }
+
+        /// <summary>
+        /// Do a continuation action when this <paramref name="task" /> completes.
+        /// </summary>
+        /// <typeparam name="TResult">The <paramref name="task" /> result.</typeparam>
+        /// <param name="task">The current task to wait.</param>
+        /// <param name="continueAction">The continuation of this task.</param>
+        /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="continueAction" /> is null.</exception>
+        public static async Task Then<TResult>(this Task<TResult> task, Action<TResult> continueAction)
+        {
+            CheckParameters(task, continueAction);
+
+            var result = await task.ConfigureAwait(false);
+            continueAction(result);
+        }
     }
 }
