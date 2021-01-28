@@ -29,12 +29,11 @@ namespace MariGlobals.Extensions
         /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="continueFunc" /> is null.</exception>
-        public static async Task Then(this Task task, Func<Task> continueFunc)
+        public static Task Then(this Task task, Func<Task> continueFunc)
         {
             CheckParametersContinueFunc(task, continueFunc);
 
-            await task.ConfigureAwait(false);
-            await continueFunc().ConfigureAwait(false);
+            return task.ContinueWith(_ => continueFunc()).Unwrap();
         }
 
         /// <summary>
@@ -45,12 +44,11 @@ namespace MariGlobals.Extensions
         /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="continueFunc" /> is null.</exception>
-        public static async Task Then(this Task task, Func<Task, Task> continueFunc)
+        public static Task Then(this Task task, Func<Task, Task> continueFunc)
         {
             CheckParametersContinueFunc(task, continueFunc);
 
-            await task.ConfigureAwait(false);
-            await continueFunc(task).ConfigureAwait(false);
+            return task.ContinueWith(continueFunc).Unwrap();
         }
 
         /// <summary>
@@ -62,13 +60,11 @@ namespace MariGlobals.Extensions
         /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="continueFunc" /> is null.</exception>
-        public static async Task<TResult?> Then<TResult>(this Task task, Func<Task<TResult?>> continueFunc)
+        public static Task<TResult?> Then<TResult>(this Task task, Func<Task<TResult?>> continueFunc)
         {
             CheckParametersContinueFunc(task, continueFunc);
 
-
-            await task.ConfigureAwait(false);
-            return await continueFunc().ConfigureAwait(false);
+            return task.ContinueWith(_ => continueFunc()).Unwrap();
         }
 
         /// <summary>
@@ -80,12 +76,11 @@ namespace MariGlobals.Extensions
         /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="continueFunc" /> is null.</exception>
-        public static async Task<TResult?> Then<TResult>(this Task task, Func<Task, Task<TResult?>> continueFunc)
+        public static Task<TResult?> Then<TResult>(this Task task, Func<Task, Task<TResult?>> continueFunc)
         {
             CheckParametersContinueFunc(task, continueFunc);
 
-            await task.ConfigureAwait(false);
-            return await continueFunc(task).ConfigureAwait(false);
+            return task.ContinueWith(continueFunc).Unwrap();
         }
 
         /// <summary>
@@ -97,12 +92,11 @@ namespace MariGlobals.Extensions
         /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="continueFunc" /> is null.</exception>
-        public static async Task Then<TResult>(this Task<TResult?> task, Func<TResult?, Task> continueFunc)
+        public static Task Then<TResult>(this Task<TResult?> task, Func<TResult?, Task> continueFunc)
         {
             CheckParametersContinueFunc(task, continueFunc);
 
-            var result = await task.ConfigureAwait(false);
-            await continueFunc(result).ConfigureAwait(false);
+            return task.ContinueWith(task => continueFunc(task.Result)).Unwrap();
         }
 
         /// <summary>
@@ -115,12 +109,11 @@ namespace MariGlobals.Extensions
         /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="continueFunc" /> is null.</exception>
-        public static async Task<TResult?> Then<TSourceResult, TResult>(this Task<TSourceResult?> task, Func<TSourceResult?, Task<TResult?>> continueFunc)
+        public static Task<TResult?> Then<TSourceResult, TResult>(this Task<TSourceResult?> task, Func<TSourceResult?, Task<TResult?>> continueFunc)
         {
             CheckParametersContinueFunc(task, continueFunc);
 
-            var result = await task.ConfigureAwait(false);
-            return await continueFunc(result).ConfigureAwait(false);
+            return task.ContinueWith(task => continueFunc(task.Result)).Unwrap();
         }
         /// <summary>
         /// Do a continuation with custom result task when this <paramref name="task" /> completes.
@@ -131,12 +124,11 @@ namespace MariGlobals.Extensions
         /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="continueFunc" /> is null.</exception>
-        public static async Task<TResult?> Then<TResult>(this Task task, Func<TResult?> continueFunc)
+        public static Task<TResult?> Then<TResult>(this Task task, Func<TResult?> continueFunc)
         {
             CheckParametersContinueFunc(task, continueFunc);
 
-            await task.ConfigureAwait(false);
-            return continueFunc();
+            return task.ContinueWith(_ => continueFunc());
         }
 
         /// <summary>
@@ -148,12 +140,11 @@ namespace MariGlobals.Extensions
         /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="continueFunc" /> is null.</exception>
-        public static async Task<TResult?> Then<TResult>(this Task task, Func<Task, TResult?> continueFunc)
+        public static Task<TResult?> Then<TResult>(this Task task, Func<Task, TResult?> continueFunc)
         {
             CheckParametersContinueFunc(task, continueFunc);
 
-            await task.ConfigureAwait(false);
-            return continueFunc(task);
+            return task.ContinueWith(continueFunc);
         }
 
         /// <summary>
@@ -166,12 +157,11 @@ namespace MariGlobals.Extensions
         /// <returns>A <see cref="Task"/> that represents an asynchronous operation.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="task" /> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="continueFunc" /> is null.</exception>
-        public static async Task<TResult?> Then<TSourceResult, TResult>(this Task<TSourceResult?> task, Func<TSourceResult?, TResult?> continueFunc)
+        public static Task<TResult?> Then<TSourceResult, TResult>(this Task<TSourceResult?> task, Func<TSourceResult?, TResult?> continueFunc)
         {
             CheckParametersContinueFunc(task, continueFunc);
 
-            var result = await task.ConfigureAwait(false);
-            return continueFunc(result);
+            return task.ContinueWith(task => continueFunc(task.Result));
         }
 
         /// <summary>
@@ -186,7 +176,7 @@ namespace MariGlobals.Extensions
         {
             CheckParametersContinueAction(task, continueAction);
 
-            return task.ContinueWith((_) => continueAction());
+            return task.ContinueWith(_ => continueAction());
         }
 
         /// <summary>
