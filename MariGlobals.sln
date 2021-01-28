@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MariGlobals", "src/MariGlobals/MariGlobals.csproj", "{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MariGlobals", "src\MariGlobals\MariGlobals.csproj", "{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6E29F676-41C4-4E52-960A-A5B215CB27F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MariGlobals.UnitTests", "tests\MariGlobals.UnitTests\MariGlobals.UnitTests.csproj", "{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,11 +19,18 @@ Global
 		{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE507B27-0FBD-4B6A-9AAE-87740A11B28C}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93} = {6E29F676-41C4-4E52-960A-A5B215CB27F3}
 	EndGlobalSection
 EndGlobal
