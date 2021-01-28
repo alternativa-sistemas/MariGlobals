@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MariGlobals", "src\MariGlobals\MariGlobals.csproj", "{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D4B392D5-B1AD-482C-B9BA-15D4609B3136}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6E29F676-41C4-4E52-960A-A5B215CB27F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MariGlobals", "src\MariGlobals\MariGlobals.csproj", "{B8509D46-EADC-426B-927C-426764828C9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MariGlobals.UnitTests", "tests\MariGlobals.UnitTests\MariGlobals.UnitTests.csproj", "{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1ED52ADF-3A09-4047-ACF6-81514D94BF0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MariGlobals.IntegrationTests", "tests\MariGlobals.IntegrationTests\MariGlobals.IntegrationTests.csproj", "{FCC780D1-FA78-4FAF-B062-38E2D59D6FFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MariGlobals.UnitTests", "tests\MariGlobals.UnitTests\MariGlobals.UnitTests.csproj", "{B9C106C0-EF4B-4978-B29F-87CA71F49251}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MariGlobals.IntegrationTests", "tests\MariGlobals.IntegrationTests\MariGlobals.IntegrationTests.csproj", "{03F08EFB-EB7C-43D3-9FEE-90794B67A3B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,18 +19,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBFE3898-A4C0-402E-8CB9-1614A72CCEFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCC780D1-FA78-4FAF-B062-38E2D59D6FFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCC780D1-FA78-4FAF-B062-38E2D59D6FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCC780D1-FA78-4FAF-B062-38E2D59D6FFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCC780D1-FA78-4FAF-B062-38E2D59D6FFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8509D46-EADC-426B-927C-426764828C9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8509D46-EADC-426B-927C-426764828C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8509D46-EADC-426B-927C-426764828C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8509D46-EADC-426B-927C-426764828C9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9C106C0-EF4B-4978-B29F-87CA71F49251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9C106C0-EF4B-4978-B29F-87CA71F49251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9C106C0-EF4B-4978-B29F-87CA71F49251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9C106C0-EF4B-4978-B29F-87CA71F49251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03F08EFB-EB7C-43D3-9FEE-90794B67A3B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03F08EFB-EB7C-43D3-9FEE-90794B67A3B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03F08EFB-EB7C-43D3-9FEE-90794B67A3B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03F08EFB-EB7C-43D3-9FEE-90794B67A3B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,7 +39,8 @@ Global
 		SolutionGuid = {AE507B27-0FBD-4B6A-9AAE-87740A11B28C}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{AF885C08-BCC1-43BE-8FF1-14FAFF1D4D93} = {6E29F676-41C4-4E52-960A-A5B215CB27F3}
-		{FCC780D1-FA78-4FAF-B062-38E2D59D6FFE} = {6E29F676-41C4-4E52-960A-A5B215CB27F3}
+		{B8509D46-EADC-426B-927C-426764828C9F} = {D4B392D5-B1AD-482C-B9BA-15D4609B3136}
+		{B9C106C0-EF4B-4978-B29F-87CA71F49251} = {1ED52ADF-3A09-4047-ACF6-81514D94BF0A}
+		{03F08EFB-EB7C-43D3-9FEE-90794B67A3B3} = {1ED52ADF-3A09-4047-ACF6-81514D94BF0A}
 	EndGlobalSection
 EndGlobal
