@@ -54,7 +54,7 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
-        public async Task Then_Should_Call_continueFuncTask_When_valueTask_Completes()
+        public async Task Then_Should_Call_continueFuncValueTask_When_valueTask_Completes()
         {
             // Act
             var called = false;
@@ -72,7 +72,7 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
-        public async Task Then_Should_Call_continueFuncTaskTask_When_valueTask_Completes()
+        public async Task Then_Should_Call_continueFuncValueValueTask_When_valueTask_Completes()
         {
             // Act
             var called = false;
@@ -92,7 +92,7 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
-        public async Task Then_Should_Call_continueFuncTaskOfTResult_When_valueTask_Completes()
+        public async Task Then_Should_Call_continueFuncValueTaskOfTResult_When_valueTask_Completes()
         {
             // Act
             var valueTask = ValueTask.CompletedTask;
@@ -109,7 +109,7 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
-        public async Task Then_Should_Call_continueFuncTaskTaskOfTResult_When_valueTask_Completes()
+        public async Task Then_Should_Call_continueFuncValueValueTaskOfTResult_When_valueTask_Completes()
         {
             // Act
             var valueTask = ValueTask.CompletedTask;
@@ -129,7 +129,7 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
-        public async Task Then_Should_Call_continueFuncTResultTask_When_valueTask_Completes()
+        public async Task Then_Should_Call_continueFuncTResultValueTask_When_valueTask_Completes()
         {
             // Act
             var expected = "test";
@@ -149,7 +149,7 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
-        public async Task Then_Should_Call_continueFuncTSourceResultTaskOfTResult_When_valueTask_Completes()
+        public async Task Then_Should_Call_continueFuncTSourceResultValueTaskOfTResult_When_valueTask_Completes()
         {
             // Act
             var expectedValueTaskResult = "test";
@@ -187,7 +187,7 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
-        public async Task Then_Should_Call_continueFuncTaskTResult_When_valueTask_Completes()
+        public async Task Then_Should_Call_continueFuncValueTaskTResult_When_valueTask_Completes()
         {
             // Act
             var expected = "test";
@@ -245,7 +245,7 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
-        public async Task Then_Should_Call_continueActionTask_When_valueTask_Completes()
+        public async Task Then_Should_Call_continueActionValueTask_When_valueTask_Completes()
         {
             // Act
             var called = false;
