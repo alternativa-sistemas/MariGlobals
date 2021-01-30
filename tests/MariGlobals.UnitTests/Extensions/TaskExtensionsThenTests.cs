@@ -64,7 +64,6 @@ namespace MariGlobals.UnitTests.Extensions
                     called = true;
                 });
             });
-
             Assert.False(called);
         }
 

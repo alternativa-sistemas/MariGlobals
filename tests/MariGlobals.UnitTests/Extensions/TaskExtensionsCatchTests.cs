@@ -37,6 +37,23 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
+        public async Task Catch_Should_Not_Call_catchActionEdi_When_task_Completes()
+        {
+            // Act
+            var task = Task.CompletedTask;
+            var called = false;
+
+            // Arrange
+            await task.Catch((edi) =>
+            {
+                called = true;
+            });
+
+            // Assert
+            Assert.False(called);
+        }
+
+        [Fact]
         public async Task Catch_Should_Call_catchFuncEdiTask_When_Task_Results_In_A_Exception()
         {
             // Act
