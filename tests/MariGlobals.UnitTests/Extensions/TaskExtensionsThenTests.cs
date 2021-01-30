@@ -50,6 +50,25 @@ namespace MariGlobals.UnitTests.Extensions
         }
 
         [Fact]
+        public async Task Then_Should_Not_Call_continueAction_When_task_Results_In_Exception()
+        {
+            // Act
+            var task = Task.FromException(new());
+            var called = false;
+
+            // Arrange + Assert
+            await Assert.ThrowsAsync<Exception>(() =>
+            {
+                return task.Then(() =>
+                {
+                    called = true;
+                });
+            });
+
+            Assert.False(called);
+        }
+
+        [Fact]
         public async Task Then_Should_Call_continueFuncTask_When_task_Completes()
         {
             // Act
